@@ -17,6 +17,7 @@ function queueMeta(status: string, submittedAt: Date): { priority: Priority; act
 /** Aggregate the admin dashboard from live agent data (PRD §10). */
 export async function getDashboard(): Promise<DashboardData> {
   const agents = await prisma.agent.findMany({
+    where: { status: { not: 'DRAFT' } }, // exclude unsubmitted drafts
     select: {
       id: true,
       appId: true,

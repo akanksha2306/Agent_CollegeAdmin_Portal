@@ -66,6 +66,30 @@ export interface User {
   role: UserRole;
 }
 
+/** A document as seen by the agent in their own portal (no raw base64). */
+export interface MyDocument {
+  id: string;
+  key: DocumentKey;
+  status: DocumentStatus;
+  fileName: string | null;
+  contentType: string | null;
+  hasFile: boolean;
+}
+
+/** The agent's own application view. */
+export interface MyApplication {
+  id: string;
+  appId: string;
+  business: string;
+  contactName: string;
+  email: string;
+  type: AgentType;
+  status: AgentStatus;
+  ackSent: boolean;
+  ackReplied: boolean;
+  documents: MyDocument[];
+}
+
 /** Login credentials (college-admin sign-in). */
 export interface LoginInput {
   username: string;

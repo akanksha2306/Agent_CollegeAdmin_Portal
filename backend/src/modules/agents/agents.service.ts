@@ -15,8 +15,9 @@ function nextAppId(count: number): string {
 }
 
 export async function listAgents(status?: string) {
+  // DRAFT applications (agent hasn't submitted yet) never appear in admin views.
   return prisma.agent.findMany({
-    where: status ? { status: status as never } : undefined,
+    where: status ? { status: status as never } : { status: { not: 'DRAFT' } },
     orderBy: { submittedAt: 'desc' },
     include: { documents: true },
   });
@@ -84,11 +85,21 @@ export async function attachDocumentFile(
   return getAgent(agentId);
 }
 
-/** Return the stored file's disk path + original name, or null. */
+/**
+ * Return the stored file for a document — either base64 (agent-portal upload)
+ * or a disk path (admin-side upload). null if no file.
+ */
 export async function getDocumentFile(agentId: string, key: DocumentKey) {
   const doc = await prisma.document.findFirst({ where: { agentId, key } });
-  if (!doc?.filePath) return null;
-  return { filePath: doc.filePath, fileName: doc.fileName ?? 'document' };
+  if (!doc) return null;
+  const fileName = doc.fileName ?? 'document';
+  if (doc.fileData) {
+    return { kind: 'base64' as const, data: doc.fileData, contentType: doc.contentType ?? 'application/octet-stream', fileName };
+  }
+  if (doc.filePath) {
+    return { kind: 'path' as const, filePath: doc.filePath, fileName };
+  }
+  return null;
 }
 
 /** Remove an uploaded document: delete the file from disk and reset it to Missing. */

@@ -1,7 +1,25 @@
-import type { Agent, ApproveResult, AuditEventDTO, AuthResponse, CreateAgentInput, DashboardData } from '@amp/shared';
+import type {
+  Agent,
+  ApproveResult,
+  AuditEventDTO,
+  AuthResponse,
+  CreateAgentInput,
+  DashboardData,
+  MyApplication,
+} from '@amp/shared';
 
 // Vite proxies /api to the Express backend (see vite.config.ts).
 const BASE = '/api';
+
+/** Read a File into pure base64 (strips the "data:...;base64," prefix). */
+function fileToBase64(file: File): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(String(reader.result).split(',')[1] ?? '');
+    reader.onerror = () => reject(new Error('Could not read file'));
+    reader.readAsDataURL(file);
+  });
+}
 
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
   const res = await fetch(`${BASE}${path}`, {
@@ -88,4 +106,17 @@ export const api = {
   // Activation (post-approval)
   markAgreementSigned: (id: string) => request<Agent>(`/agents/${id}/agreement/sign`, { method: 'POST' }),
   provisionAccount: (id: string) => request<ApproveResult>(`/agents/${id}/provision`, { method: 'POST' }),
+
+  // Agent portal (AGENT role — own application only)
+  getMyApplication: () => request<MyApplication>('/agent/application'),
+  uploadMyDocument: async (key: string, file: File) => {
+    const dataBase64 = await fileToBase64(file);
+    return request<MyApplication>(`/agent/documents/${key}`, {
+      method: 'POST',
+      body: JSON.stringify({ fileName: file.name, contentType: file.type, dataBase64 }),
+    });
+  },
+  removeMyDocument: (key: string) => request<MyApplication>(`/agent/documents/${key}`, { method: 'DELETE' }),
+  acknowledgeReceipt: () => request<MyApplication>('/agent/acknowledge', { method: 'POST' }),
+  submitApplication: () => request<MyApplication>('/agent/submit', { method: 'POST' }),
 };

@@ -1,5 +1,5 @@
 import { useEffect, useState, type ReactNode } from 'react';
-import { NavLink, Outlet, useNavigate } from 'react-router-dom';
+import { NavLink, Navigate, Outlet, useNavigate } from 'react-router-dom';
 import { useAuth } from '../features/auth/AuthContext.js';
 import { api } from '../lib/api.js';
 
@@ -34,6 +34,9 @@ export function AppLayout() {
     await logout();
     navigate('/login', { replace: true });
   }
+
+  // Agents don't belong in the admin app.
+  if (user?.role === 'AGENT') return <Navigate to="/agent" replace />;
 
   return (
     <div className="shell">

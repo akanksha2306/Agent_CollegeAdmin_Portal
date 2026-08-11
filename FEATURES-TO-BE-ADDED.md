@@ -5,6 +5,36 @@ sessions. Newest first. Each entry: target → current state → what to add →
 
 ---
 
+## 9. Agent-facing portal ✅ DONE (2026-08-11)
+**Source:** user request · **PRD:** §07 · **Status:** Built & verified end-to-end — *reverses the earlier "agent portal deferred to Phase 2" decision*
+
+### What it does
+Same app, **role-based login**. Robin (ADMIN) → admin app; **Arunima (AGENT)** → a plain agent page. The agent uploads typed documents (Business Registration / ASIC / ID / QEAC-PIER) as **jpeg/png/pdf**, stored in Neon **as base64**. On **Submit**, her application flips DRAFT → **New Request** and appears in Robin's queue; the files flow into the 4-stage review (admin can **open/verify** them).
+
+### What was built
+- **Data model:** `AGENT` role, `DRAFT` status (hidden from admin views until submitted), `User.agentId` (agent-user ↔ their application), `Document.fileData` (base64) + `contentType`.
+- **Backend:** `requireRole` guard; `/api/agent/*` module (get own application, upload/remove base64 doc, submit) — strictly scoped to the caller's own `agentId`; admin file endpoint now serves base64 or disk; JSON limit raised to 12mb. Admin endpoints (`/agents`, `/dashboard`) locked to staff roles (agents get 403).
+- **Frontend:** role-based routing (agent → `/agent`, staff → admin app, cross-access redirected); plain `AgentPortalPage` (upload each doc → base64 → save, then Submit → confirmation); admin review gains an **"Open file"** link to view agent uploads.
+- **Seed:** `arunima` / `AgentPortal26` (AGENT) with a DRAFT application to fill.
+
+### Verified
+API smoke test: agent login → sees own DRAFT → **403 on admin endpoints** → base64 upload saved → submit → admin sees New Request → opens the decoded file. Typecheck + prod build clean.
+
+### Phase 2 (still deferred)
+- Real email delivery (submission/acknowledgement still mock/audit-only).
+- Object storage instead of base64-in-DB (base64 is fine for this demo, not for scale).
+
+### Follow-up (2026-08-11): portal chooser entry screen
+Login now opens with a **two-option chooser** — **College Admin** and **Agent Portal** — each leading into that portal's sign-in (tailored heading, demo creds prefilled per portal, SSO shown only for admin, "← choose a different portal" to switch). Frontend-only (`LoginPage.tsx` + `styles.css`); role-based redirect after login unchanged.
+
+### Follow-up (2026-08-11): acknowledgement shown on the agent portal
+When the admin clicks **Send acknowledgement** (Stage 3), the agent now **sees it on their portal** after login: an "Acknowledgement from the college" card on the submitted screen, with a **"Confirm receipt & respond"** button. Confirming sets `ackReplied` → the admin's Stage 3 shows "reply received" (references become approvable) — so the loop is now driven by the real agent, not the admin mock. New `POST /api/agent/acknowledge`; `MyApplication` exposes `ackSent`/`ackReplied`. Verified end-to-end via API.
+
+### Fix (2026-08-11): agent portal — clear way back to login
+Bug: after an agent submitted, the only exit was an obscure ⎋ icon and the "Submitted" screen had no button — a dead-end. Fixed: header now has a labeled **Sign out** button, and the Submitted card has a prominent **"← Back to login"** button. Both return to the login chooser so the user can sign in as College Admin. (`AgentPortalPage.tsx`.)
+
+---
+
 ## 8. Sidebar nav — all six sections ✅ DONE (2026-08-11)
 **Source:** prototype sidebar · **PRD:** §06/§10/§11 · **Status:** Nav shell built (sections deferred)
 

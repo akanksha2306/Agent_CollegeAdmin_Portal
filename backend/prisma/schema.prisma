@@ -18,6 +18,7 @@ enum AgentStatus {
   ACTIVE
   REJECTED
   TERMINATED
+  DRAFT
 }
 
 enum AgentType {
@@ -55,6 +56,7 @@ enum UserRole {
   ADMIN
   REVIEWER
   AUDITOR
+  AGENT
 }
 
 model User {
@@ -66,6 +68,10 @@ model User {
   role         UserRole     @default(REVIEWER)
   createdAt    DateTime     @default(now())
   auditEvents  AuditEvent[]
+
+  // For AGENT users: the application they own.
+  agent   Agent?  @relation(fields: [agentId], references: [id])
+  agentId String? @unique
 }
 
 model Agent {
@@ -103,6 +109,7 @@ model Agent {
   onboardingTasks OnboardingTask[]
   performance     PerformanceSnapshot[]
   auditEvents     AuditEvent[]
+  user            User?
 }
 
 model Document {
@@ -111,7 +118,9 @@ model Document {
   agentId      String
   key          DocumentKey
   fileName     String?
-  filePath     String? // path to the stored upload on disk
+  filePath     String? // path to the stored upload on disk (admin-side upload)
+  fileData     String? @db.Text // base64-encoded file (agent-portal upload)
+  contentType  String? // e.g. image/png, application/pdf
   status       DocumentStatus @default(MISSING)
   verifiedById String?
   verifiedAt   DateTime?

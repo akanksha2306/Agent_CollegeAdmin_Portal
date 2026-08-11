@@ -5,8 +5,8 @@ import { api } from '../../lib/api.js';
 interface AuthContextValue {
   user: User | null;
   loading: boolean;
-  login: (username: string, password: string) => Promise<void>;
-  ssoLogin: () => Promise<void>;
+  login: (username: string, password: string) => Promise<User>;
+  ssoLogin: () => Promise<User>;
   logout: () => Promise<void>;
 }
 
@@ -32,10 +32,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       login: async (username, password) => {
         const res = await api.login(username, password);
         setUser(res.user);
+        return res.user;
       },
       ssoLogin: async () => {
         const res = await api.ssoLogin();
         setUser(res.user);
+        return res.user;
       },
       logout: async () => {
         await api.logout();

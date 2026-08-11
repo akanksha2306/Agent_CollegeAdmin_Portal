@@ -39,6 +39,18 @@ a:hover { text-decoration: underline; }
 }
 .navitem--active .nav-badge { background: rgba(255, 255, 255, .25); }
 
+/* Agent portal — deliberately plain, centered single column */
+.agent-wrap { max-width: 640px; margin: 0 auto; padding: 40px 24px 80px; }
+.agent-head { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 24px; }
+.agent-doclist { display: flex; flex-direction: column; gap: 10px; margin: 16px 0; }
+.agent-docrow {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface);
+}
+.agent-docmeta { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.agent-docactions { display: flex; align-items: center; gap: 8px; flex: none; }
+.agent-submit { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--line); }
+
 /* Placeholder (stub) pages */
 .stub-card { align-items: flex-start; gap: 10px; padding: 40px; }
 .stub-badge {
@@ -205,6 +217,27 @@ a:hover { text-decoration: underline; }
   font-size: 13px; margin-bottom: 14px;
 }
 .hint { margin-top: 14px; text-align: center; }
+
+/* Portal chooser */
+.portal-choice { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
+.portal-card {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 4px;
+  text-align: left; cursor: pointer; padding: 18px; border-radius: 12px;
+  border: 1px solid var(--line); background: var(--surface); color: var(--ink);
+  transition: border-color .12s ease, background .12s ease;
+}
+.portal-card:hover { border-color: var(--brand); background: var(--brand-soft); }
+.portal-ico {
+  width: 40px; height: 40px; border-radius: 10px; display: grid; place-items: center;
+  background: var(--brand-soft); color: var(--brand); margin-bottom: 6px;
+}
+.portal-title { font-family: var(--font-heading, inherit); font-size: 17px; font-weight: 700; }
+.portal-sub { font-size: 13px; color: var(--muted); }
+.portal-back {
+  align-self: flex-start; background: none; border: none; cursor: pointer;
+  color: var(--brand); font-size: 13px; font-weight: 600; padding: 0; margin-bottom: 14px;
+}
+.portal-back:hover { text-decoration: underline; }
 
 /* Review header */
 .review-head { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 20px; }

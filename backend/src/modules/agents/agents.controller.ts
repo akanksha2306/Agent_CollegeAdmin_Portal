@@ -73,6 +73,12 @@ export async function downloadDocFile(req: Request, res: Response) {
   if (!key) return res.status(400).json({ error: 'Invalid document key' });
   const file = await service.getDocumentFile(req.params.id, key);
   if (!file) return res.status(404).json({ error: 'No file uploaded for this document' });
+  if (file.kind === 'base64') {
+    const buf = Buffer.from(file.data, 'base64');
+    res.setHeader('Content-Type', file.contentType);
+    res.setHeader('Content-Disposition', `inline; filename="${file.fileName}"`);
+    return res.send(buf);
+  }
   res.download(file.filePath, file.fileName);
 }
 

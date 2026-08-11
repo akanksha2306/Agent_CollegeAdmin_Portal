@@ -13,11 +13,13 @@ import {
 } from '@amp/shared';
 
 const AUDIT_LABEL: Record<string, string> = {
+  SUBMITTED: 'Application submitted by agent',
   APPROVED: 'Approved',
   REJECTED: 'Rejected',
   REQUEST_INFO: 'Requested more information',
   AGREEMENT_SIGNED: 'Written agreement signed',
   ACCOUNT_CREATED: 'Portal account created',
+  AGENT_ACK_REPLIED: 'Agent confirmed acknowledgement',
 };
 import { Modal } from '../../components/Modal.js';
 import { api } from '../../lib/api.js';
@@ -211,6 +213,9 @@ export function AgentDetailPage() {
           {doc.status !== 'MISSING' && (
             <button className="btn btn-ghost" onClick={() => setViewKey(key)}>View</button>
           )}
+          {doc.status !== 'MISSING' && doc.fileName && id && (
+            <a className="btn btn-ghost" href={api.documentFileUrl(id, key)} target="_blank" rel="noreferrer">Open file</a>
+          )}
           {doc.status === 'PENDING' && (
             <button className="btn btn-secondary" disabled={busy} onClick={() => id && run(() => api.verifyDocument(id, key))}>
               Verify
@@ -249,6 +254,11 @@ export function AgentDetailPage() {
             <h1>{agent.business}</h1>
             <span className="pill">{AGENT_STATUS_LABELS[agent.status]}</span>
             {dual && <span className="pill pill--line">Dual agent · COI required</span>}
+            {agent.ackReplied
+              ? <span className="pill pill--ok">Acknowledgement: agent confirmed ✓</span>
+              : agent.ackSent
+                ? <span className="pill pill--warn">Acknowledgement: awaiting agent</span>
+                : null}
           </div>
           <p className="muted">{agent.appId} · {agent.city}, {agent.country} · {agent.contactName}</p>
         </div>

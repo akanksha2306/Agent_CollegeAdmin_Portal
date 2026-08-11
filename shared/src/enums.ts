@@ -9,6 +9,7 @@ export const AGENT_STATUS = [
   'ACTIVE',
   'REJECTED',
   'TERMINATED',
+  'DRAFT',
 ] as const;
 export type AgentStatus = (typeof AGENT_STATUS)[number];
 
@@ -28,7 +29,7 @@ export type ReferenceOutcome = (typeof REFERENCE_OUTCOME)[number];
 export const RATING = ['A', 'B', 'C', 'UNRATED'] as const;
 export type Rating = (typeof RATING)[number];
 
-export const USER_ROLE = ['ADMIN', 'REVIEWER', 'AUDITOR'] as const;
+export const USER_ROLE = ['ADMIN', 'REVIEWER', 'AUDITOR', 'AGENT'] as const;
 export type UserRole = (typeof USER_ROLE)[number];
 
 /** The four gated stages of the verification pipeline (PRD §08). */
@@ -50,6 +51,7 @@ export const DOCUMENT_KEY_LABELS: Record<DocumentKey, string> = {
 
 /** Human-readable labels for UI. */
 export const AGENT_STATUS_LABELS: Record<AgentStatus, string> = {
+  DRAFT: 'Draft',
   NEW_REQUEST: 'New Request',
   IN_REVIEW: 'In Review',
   PENDING_DOCUMENTS: 'Pending Documents',

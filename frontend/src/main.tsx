@@ -6,6 +6,7 @@ import { StubPage } from './components/StubPage.js';
 import { AuthProvider } from './features/auth/AuthContext.js';
 import { LoginPage } from './features/auth/LoginPage.js';
 import { ProtectedRoute } from './features/auth/ProtectedRoute.js';
+import { AgentPortalPage } from './features/agentPortal/AgentPortalPage.js';
 import { DashboardPage } from './features/dashboard/DashboardPage.js';
 import { ApplicationsPage } from './features/applications/ApplicationsPage.js';
 import { AgentDetailPage } from './features/applications/AgentDetailPage.js';
@@ -17,6 +18,8 @@ const router = createBrowserRouter([
     path: '/',
     element: <ProtectedRoute />,
     children: [
+      // Agent portal — its own top-level page (no admin chrome).
+      { path: 'agent', element: <AgentPortalPage /> },
       {
         element: <AppLayout />,
         children: [

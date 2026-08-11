@@ -74,9 +74,10 @@ function buildDocs(map: DocMap, dual: boolean) {
 }
 
 async function main() {
+  // Delete in FK-safe order: audit events, then users (reference agents), then agents.
   await prisma.auditEvent.deleteMany();
-  await prisma.agent.deleteMany();
   await prisma.user.deleteMany();
+  await prisma.agent.deleteMany();
 
   await prisma.user.create({
     data: {
@@ -110,7 +111,54 @@ async function main() {
     i += 1;
   }
 
-  console.log(`Seeded ${agents.length} agents + 1 admin user.`);
+  // ── Agent-portal demo accounts (AGENT) each with a DRAFT application to fill in ──
+  const portalAgents = [
+    { username: 'arunima', name: 'Arunima Sen', business: 'Arunima Overseas Education', city: 'Kolkata', email: 'arunima@example.com', phone: '+91 98300 55667' },
+    { username: 'rohan', name: 'Rohan Mehta', business: 'Rohan Education Consultants', city: 'Pune', email: 'rohan@example.com', phone: '+91 98220 33445' },
+    { username: 'priyanka', name: 'Priyanka Rao', business: 'Priyanka Global Studies', city: 'Bengaluru', email: 'priyanka@example.com', phone: '+91 98450 66778' },
+    { username: 'sneha', name: 'Sneha Nair', business: 'Sneha Overseas Advisors', city: 'Kochi', email: 'sneha@example.com', phone: '+91 94470 88990' },
+    { username: 'vikram', name: 'Vikram Malhotra', business: 'Vikram Study Abroad', city: 'Delhi', email: 'vikram@example.com', phone: '+91 98110 22334' },
+    { username: 'ananya', name: 'Ananya Das', business: 'Ananya Education Services', city: 'Hyderabad', email: 'ananya@example.com', phone: '+91 99490 55667' },
+    { username: 'kabir', name: 'Kabir Shah', business: 'Kabir Global Pathways', city: 'Ahmedabad', email: 'kabir@example.com', phone: '+91 99250 88990' },
+  ];
+
+  // Two pending referees per portal agent so Stage 3 (References) has something to approve.
+  const portalRefs = [
+    { name: 'Meera Iyer', provider: 'Bright CRICOS Institute' },
+    { name: 'David Chan', provider: 'Harbour College' },
+  ];
+
+  let j = agents.length;
+  for (const pa of portalAgents) {
+    const rec = await prisma.agent.create({
+      data: {
+        appId: `AMP-26-${1001 + j}`,
+        business: pa.business,
+        contactName: pa.name,
+        country: 'India',
+        city: pa.city,
+        email: pa.email,
+        phone: pa.phone,
+        type: 'EDUCATION',
+        status: 'DRAFT',
+        documents: { create: DOC_KEYS.map((key) => ({ key, status: 'MISSING' as const })) },
+        references: { create: portalRefs.map((r) => ({ refereeName: r.name, cricosProvider: r.provider, outcome: 'PENDING' as const })) },
+      },
+    });
+    await prisma.user.create({
+      data: {
+        username: pa.username,
+        email: pa.email,
+        name: pa.name,
+        role: 'AGENT',
+        passwordHash: await bcrypt.hash('AgentPortal26', 10),
+        agentId: rec.id,
+      },
+    });
+    j += 1;
+  }
+
+  console.log(`Seeded ${agents.length} agents + admin + ${portalAgents.length} portal-agent accounts.`);
 }
 
 main()
