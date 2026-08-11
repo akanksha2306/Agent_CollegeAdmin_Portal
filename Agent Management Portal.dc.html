@@ -1,0 +1,1165 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/organic-50a62b3f-7cae-43f8-b666-7c774f03b93c/styles.css">
+  <script src="_ds/organic-50a62b3f-7cae-43f8-b666-7c774f03b93c/_ds_bundle.js"></script>
+  <style>
+    .amp-scroll::-webkit-scrollbar{width:10px;height:10px}
+    .amp-scroll::-webkit-scrollbar-thumb{background:var(--color-neutral-300);border-radius:999px}
+    .amp-row{cursor:pointer}
+    .amp-navitem:hover{background:color-mix(in srgb, var(--color-accent) 10%, transparent)!important}
+  </style>
+</helmet>
+
+<div style="min-height:100vh;font-family:var(--font-body);color:var(--color-text);background:var(--color-bg)">
+
+  <!-- ══════════ LOGIN ══════════ -->
+  <sc-if value="{{ isLogin }}" hint-placeholder-val="{{ true }}">
+  <div style="display:flex;min-height:100vh">
+    <div style="flex:1.05;position:relative;overflow:hidden;background:var(--color-accent);color:var(--color-bg);display:flex;flex-direction:column;justify-content:space-between;padding:56px">
+      <div style="position:absolute;width:520px;height:520px;border-radius:50%;background:color-mix(in srgb,#fff 12%,transparent);top:-160px;right:-160px"></div>
+      <div style="position:absolute;width:360px;height:360px;border-radius:50%;background:color-mix(in srgb,#000 10%,transparent);bottom:-120px;left:-80px"></div>
+      <div style="position:relative;display:flex;align-items:center;gap:12px">
+        <div style="width:40px;height:40px;border-radius:50%;background:var(--color-bg);color:var(--color-accent);display:grid;place-items:center;font-family:var(--font-heading);font-size:20px">A</div>
+        <span style="font-family:var(--font-heading);font-size:20px">{{ collegeName }}</span>
+      </div>
+      <div style="position:relative;max-width:440px">
+        <h1 style="color:var(--color-bg);font-size:46px;line-height:1.05;margin-bottom:16px">{{ portalName }}</h1>
+        <p style="font-size:17px;opacity:.92;line-height:1.5">Review, verify and onboard your education agents in one compliant place — ESOS, CRICOS and ASQA ready.</p>
+      </div>
+      <div style="position:relative;display:flex;gap:10px;flex-wrap:wrap">
+        <span class="tag" style="background:color-mix(in srgb,#fff 18%,transparent);color:var(--color-bg)">ESOS Act</span>
+        <span class="tag" style="background:color-mix(in srgb,#fff 18%,transparent);color:var(--color-bg)">National Code 2018</span>
+        <span class="tag" style="background:color-mix(in srgb,#fff 18%,transparent);color:var(--color-bg)">PRISMS · ASQAnet</span>
+      </div>
+    </div>
+    <div style="flex:1;display:grid;place-items:center;padding:40px">
+      <div style="width:100%;max-width:380px">
+        <p class="card-kicker" style="margin-bottom:6px">College Admin Sign-in</p>
+        <h2 style="margin-bottom:6px">Welcome back, Robin</h2>
+        <p class="text-muted" style="margin-bottom:24px">Sign in to manage your agent partnerships.</p>
+        <button class="btn btn-secondary btn-block" onClick="{{ signInSso }}" style="justify-content:center;gap:10px;min-height:46px;margin-top:0">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg>
+          Continue with University SSO
+        </button>
+        <div style="display:flex;align-items:center;gap:12px;margin:20px 0;color:color-mix(in srgb,var(--color-text) 45%,transparent);font-size:12px">
+          <div style="flex:1;height:1px;background:var(--color-divider)"></div>OR<div style="flex:1;height:1px;background:var(--color-divider)"></div>
+        </div>
+        <div class="field" style="margin-bottom:14px">
+          <label>Email address</label>
+          <input class="input" value="{{ email }}" onChange="{{ onEmail }}" placeholder="you@australiancollege.edu.au">
+        </div>
+        <div class="field" style="margin-bottom:20px">
+          <label>Password</label>
+          <input class="input" type="password" value="{{ password }}" onChange="{{ onPassword }}" placeholder="Enter your password">
+        </div>
+        <button class="btn btn-primary btn-block" onClick="{{ signIn }}" style="min-height:46px;margin-top:0">Sign In</button>
+        <div style="display:flex;justify-content:space-between;margin-top:14px;font-size:13px">
+          <a href="#" style="text-decoration:none">Forgot password?</a>
+          <span class="text-muted">Role-based access · MFA enabled</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ══════════ MFA ══════════ -->
+  <sc-if value="{{ isMfa }}" hint-placeholder-val="{{ true }}">
+  <div style="display:grid;place-items:center;min-height:100vh;padding:24px">
+    <div class="elev-md" style="width:100%;max-width:420px;background:var(--color-surface);border-radius:var(--radius-lg);padding:36px;text-align:center">
+      <div style="width:56px;height:56px;border-radius:50%;background:var(--color-accent-100);color:var(--color-accent-700);display:grid;place-items:center;margin:0 auto 18px">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      </div>
+      <h3 style="margin-bottom:6px">Two-factor verification</h3>
+      <p class="text-muted" style="margin-bottom:24px">Enter the 6-digit code sent to your registered device ending ••• 42.</p>
+      <div style="display:flex;gap:10px;justify-content:center;margin-bottom:24px">
+        <input class="input" maxlength="1" inputmode="numeric" onInput="{{ mfaNext }}" onKeyDown="{{ mfaKey }}" style="width:46px;height:56px;text-align:center;font-size:22px;padding:0;border-radius:14px">
+        <input class="input" maxlength="1" inputmode="numeric" onInput="{{ mfaNext }}" onKeyDown="{{ mfaKey }}" style="width:46px;height:56px;text-align:center;font-size:22px;padding:0;border-radius:14px">
+        <input class="input" maxlength="1" inputmode="numeric" onInput="{{ mfaNext }}" onKeyDown="{{ mfaKey }}" style="width:46px;height:56px;text-align:center;font-size:22px;padding:0;border-radius:14px">
+        <input class="input" maxlength="1" inputmode="numeric" onInput="{{ mfaNext }}" onKeyDown="{{ mfaKey }}" style="width:46px;height:56px;text-align:center;font-size:22px;padding:0;border-radius:14px">
+        <input class="input" maxlength="1" inputmode="numeric" onInput="{{ mfaNext }}" onKeyDown="{{ mfaKey }}" style="width:46px;height:56px;text-align:center;font-size:22px;padding:0;border-radius:14px">
+        <input class="input" maxlength="1" inputmode="numeric" onInput="{{ mfaNext }}" onKeyDown="{{ mfaKey }}" style="width:46px;height:56px;text-align:center;font-size:22px;padding:0;border-radius:14px">
+      </div>
+      <button class="btn btn-primary btn-block" onClick="{{ verifyMfa }}" style="min-height:46px;margin-top:0">Verify &amp; Continue</button>
+      <div style="margin-top:16px;font-size:13px" class="text-muted">Didn't get it? <a href="#" style="text-decoration:none">Resend code</a> · <a href="#" onClick="{{ backToLogin }}" style="text-decoration:none">Back</a></div>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ══════════ APP SHELL ══════════ -->
+  <sc-if value="{{ isApp }}" hint-placeholder-val="{{ true }}">
+  <div style="display:flex;min-height:100vh">
+
+    <!-- Sidebar -->
+    <aside style="width:252px;flex:none;background:var(--color-surface);padding:22px 16px;display:flex;flex-direction:column;gap:6px;position:sticky;top:0;height:100vh">
+      <div style="display:flex;align-items:center;gap:11px;padding:4px 8px 18px">
+        <div style="width:36px;height:36px;border-radius:50%;background:var(--color-accent);color:var(--color-bg);display:grid;place-items:center;font-family:var(--font-heading);font-size:18px">A</div>
+        <div style="line-height:1.15">
+          <div style="font-family:var(--font-heading);font-size:16px">AMP</div>
+          <div class="text-muted" style="font-size:11px">{{ collegeName }}</div>
+        </div>
+      </div>
+      <button class="amp-navitem" onClick="{{ goDashboard }}" style="{{ navStyle.dashboard }}">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></svg>
+        Dashboard
+      </button>
+      <button class="amp-navitem" onClick="{{ goApplications }}" style="{{ navStyle.applications }}">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M8 13h8"/><path d="M8 17h5"/></svg>
+        Applications
+        <sc-if value="{{ newCount }}" hint-placeholder-val="{{ true }}"><span style="margin-left:auto;background:var(--color-accent);color:var(--color-bg);font-size:11px;border-radius:999px;padding:1px 8px">{{ newCount }}</span></sc-if>
+      </button>
+      <button class="amp-navitem" onClick="{{ goAgents }}" style="{{ navStyle.agents }}">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Active Agents
+      </button>
+      <button class="amp-navitem" onClick="{{ goCollateral }}" style="{{ navStyle.collateral }}">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/></svg>
+        Marketing Collateral
+      </button>
+      <button class="amp-navitem" onClick="{{ goCompliance }}" style="{{ navStyle.compliance }}">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
+        Compliance
+      </button>
+      <button class="amp-navitem" onClick="{{ goReports }}" style="{{ navStyle.reports }}">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><line x1="12" x2="12" y1="20" y2="10"/><line x1="18" x2="18" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="16"/></svg>
+        Reports
+      </button>
+      <div style="flex:1"></div>
+      <div style="display:flex;align-items:center;gap:11px;padding:10px 8px;border-top:1px solid var(--color-divider)">
+        <div style="width:34px;height:34px;border-radius:50%;background:var(--color-accent-2);color:var(--color-bg);display:grid;place-items:center;font-family:var(--font-heading)">R</div>
+        <div style="line-height:1.2;flex:1">
+          <div style="font-size:13px;font-weight:600">Robin Mercer</div>
+          <div class="text-muted" style="font-size:11px">College Admin</div>
+        </div>
+        <button class="btn btn-icon" onClick="{{ logout }}" title="Log out" style="width:32px;height:32px">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/></svg>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <main class="amp-scroll" style="flex:1;min-width:0;max-height:100vh;overflow:auto">
+      <!-- Topbar -->
+      <div style="position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--color-bg) 88%,transparent);backdrop-filter:blur(8px);display:flex;align-items:center;gap:18px;padding:18px 32px;border-bottom:1px solid var(--color-divider)">
+        <sc-if value="{{ canBack }}" hint-placeholder-val="{{ false }}">
+          <button class="btn btn-icon btn-secondary" onClick="{{ goBack }}" title="Back" style="flex:none">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+          </button>
+        </sc-if>
+        <div style="min-width:0">
+          <h3 style="margin:0;line-height:1.1">{{ pageTitle }}</h3>
+          <div class="text-muted" style="font-size:13px">{{ pageSub }}</div>
+        </div>
+        <div style="flex:1"></div>
+        <button class="btn btn-primary" onClick="{{ openInvite }}" style="flex:none">+ Invite Agent</button>
+        <div style="position:relative;width:280px;max-width:32vw">
+          <span style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:color-mix(in srgb,var(--color-text) 45%,transparent);display:flex">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          </span>
+          <input class="input" placeholder="Search agents, countries, emails…" value="{{ search }}" onChange="{{ onSearch }}" style="padding-left:40px">
+        </div>
+        <button class="btn btn-icon btn-secondary" title="Notifications" style="position:relative">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+          <span style="position:absolute;top:6px;right:7px;width:8px;height:8px;border-radius:50%;background:var(--color-accent)"></span>
+        </button>
+      </div>
+
+      <div style="padding:28px 32px 48px">
+
+        <!-- ───── DASHBOARD ───── -->
+        <sc-if value="{{ showDashboard }}" hint-placeholder-val="{{ true }}">
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:18px;align-items:start">
+
+          <div>
+            <div style="display:inline-flex;gap:4px;padding:4px;background:var(--color-surface);border-radius:999px;margin-bottom:18px">
+              <span style="padding:7px 18px;border-radius:999px;font-size:13px;font-weight:600;background:var(--color-accent);color:var(--color-bg)">Overview</span>
+              <span class="text-muted" style="padding:7px 18px;border-radius:999px;font-size:13px;font-weight:600">My Tasks</span>
+              <span class="text-muted" style="padding:7px 18px;border-radius:999px;font-size:13px;font-weight:600">Calendar</span>
+            </div>
+
+            <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:16px">
+              <sc-for list="{{ riskStats }}" as="s" hint-placeholder-count="5">
+                <div class="card elev-sm" style="gap:6px;padding:15px">
+                  <span class="card-kicker">{{ s.label }}</span>
+                  <div style="font-family:var(--font-heading);font-size:32px;line-height:1;color:{{ s.color }}">{{ s.value }}</div>
+                  <div class="text-muted" style="font-size:11px">{{ s.note }}</div>
+                </div>
+              </sc-for>
+            </div>
+
+            <div class="card elev-sm" style="margin-bottom:16px">
+              <div style="display:flex;align-items:flex-start;justify-content:space-between">
+                <div><h4 style="margin:0">My work queue</h4><div class="text-muted" style="font-size:12px">Prioritised actions assigned to you</div></div>
+                <a href="#" onClick="{{ goApplications }}" style="text-decoration:none;font-size:13px">View all →</a>
+              </div>
+              <table class="table">
+                <thead><tr><th>Priority</th><th>Agent</th><th>Required action</th><th>Due</th><th></th></tr></thead>
+                <tbody>
+                  <sc-for list="{{ workQueue }}" as="w" hint-placeholder-count="4">
+                    <tr class="amp-row" onClick="{{ w.open }}">
+                      <td><span class="tag {{ w.prClass }}">{{ w.priority }}</span></td>
+                      <td style="font-weight:600">{{ w.agent }}</td>
+                      <td>{{ w.action }}</td>
+                      <td style="font-weight:600;color:{{ w.dueColor }}">{{ w.due }}</td>
+                      <td style="text-align:right"><span style="color:var(--color-accent);font-family:var(--font-heading);font-size:13px">{{ w.cta }} →</span></td>
+                    </tr>
+                  </sc-for>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="card elev-sm" style="margin-bottom:16px">
+              <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:2px">
+                <div><h4 style="margin:0">Compliance health</h4><div class="text-muted" style="font-size:12px">Control completion across active agents</div></div>
+                <div style="font-family:var(--font-heading);font-size:30px;line-height:1;color:var(--color-accent-2-700)">{{ healthOverall }}%</div>
+              </div>
+              <sc-for list="{{ health }}" as="h" hint-placeholder-count="6">
+                <div style="margin:11px 0">
+                  <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px"><span>{{ h.label }}</span><span style="font-weight:600;color:{{ h.color }}">{{ h.pct }}%</span></div>
+                  <div style="height:8px;border-radius:999px;background:var(--color-neutral-200);overflow:hidden"><div style="height:100%;border-radius:999px;width:{{ h.width }};background:{{ h.color }}"></div></div>
+                </div>
+              </sc-for>
+            </div>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+              <div class="card elev-sm">
+                <div style="display:flex;align-items:center;justify-content:space-between"><h4 style="margin:0">Upcoming deadlines</h4><span class="text-muted" style="font-size:12px">Next 30 days</span></div>
+                <sc-for list="{{ deadlines }}" as="d" hint-placeholder-count="3">
+                  <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--color-divider)">
+                    <div><div style="font-size:14px;font-weight:600">{{ d.name }}</div><div class="text-muted" style="font-size:12px">{{ d.sub }}</div></div>
+                    <span style="font-weight:600;color:{{ d.color }}">{{ d.days }}</span>
+                  </div>
+                </sc-for>
+              </div>
+              <div class="card elev-sm">
+                <div style="display:flex;align-items:center;justify-content:space-between"><h4 style="margin:0">Agent risk watchlist</h4><a href="#" onClick="{{ goAgents }}" style="text-decoration:none;font-size:12px">View agents →</a></div>
+                <sc-for list="{{ watchlist }}" as="r" hint-placeholder-count="3">
+                  <div class="amp-row" onClick="{{ r.open }}" style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--color-divider)">
+                    <div style="display:flex;gap:10px;align-items:center"><span style="width:9px;height:9px;flex:none;border-radius:50%;background:{{ r.dot }}"></span><div><div style="font-size:14px;font-weight:600">{{ r.name }}</div><div class="text-muted" style="font-size:12px">{{ r.sub }}</div></div></div>
+                    <span class="tag {{ r.levelClass }}">{{ r.level }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+
+          <div class="card elev-sm" style="position:sticky;top:92px;padding:0;overflow:hidden">
+            <div style="display:flex;align-items:center;gap:10px;padding:15px 16px;border-bottom:1px solid var(--color-divider)">
+              <div style="width:34px;height:34px;flex:none;border-radius:50%;background:var(--color-accent);color:var(--color-bg);display:grid;place-items:center">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2M20 14h2M15 13v2M9 13v2"/></svg>
+              </div>
+              <div style="flex:1"><div style="font-family:var(--font-heading);font-size:15px;line-height:1.1">AI Assistant</div><div style="font-size:11px;color:var(--color-accent-2-700);display:flex;align-items:center;gap:5px"><span style="width:7px;height:7px;border-radius:50%;background:var(--color-accent-2-500)"></span>Online</div></div>
+            </div>
+            <div style="padding:16px;display:flex;flex-direction:column;gap:12px;min-height:342px">
+              <div style="background:var(--color-neutral-100);padding:11px 13px;border-radius:16px 16px 16px 4px;font-size:13px;max-width:92%">Hi Robin! I'm your AMP assistant. How can I help you today?</div>
+              <div style="align-self:flex-end;background:var(--color-accent);color:var(--color-bg);padding:9px 14px;border-radius:999px;font-size:13px">Show me overdue agents</div>
+              <div style="background:var(--color-neutral-100);padding:11px 13px;border-radius:16px 16px 16px 4px;font-size:13px;max-width:94%">You have 3 agents needing attention. <strong>Karachi Edu Partners</strong> is terminated with a 22% visa-refusal rate, and <strong>Kathmandu Connect</strong>'s QEAC certificate expires in 12 days. Shall I open their profiles?</div>
+              <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:2px">
+                <span class="tag tag-outline" style="cursor:pointer">Draft renewal reminder</span>
+                <span class="tag tag-outline" style="cursor:pointer">Summarise this week</span>
+              </div>
+            </div>
+            <div style="padding:13px 14px;border-top:1px solid var(--color-divider);display:flex;gap:8px;align-items:center">
+              <input class="input" placeholder="Ask anything…" style="flex:1">
+              <button class="btn btn-primary btn-icon" style="flex:none"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4Z"/></svg></button>
+            </div>
+          </div>
+        </div>
+        </sc-if>
+
+        <!-- ───── APPLICATIONS ───── -->
+        <sc-if value="{{ showApplications }}" hint-placeholder-val="{{ true }}">
+        <div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px">
+            <sc-for list="{{ filters }}" as="f" hint-placeholder-count="8">
+              <button onClick="{{ f.select }}" style="{{ f.style }}">{{ f.label }}<span style="opacity:.7;margin-left:6px">{{ f.count }}</span></button>
+            </sc-for>
+          </div>
+          <div class="card elev-sm" style="padding:6px 14px">
+            <table class="table">
+              <thead><tr><th>App ID</th><th>Business / Contact</th><th>Country</th><th>Type</th><th>Submitted</th><th>Status</th><th></th></tr></thead>
+              <tbody>
+                <sc-for list="{{ appRows }}" as="a" hint-placeholder-count="10">
+                  <tr class="amp-row" onClick="{{ a.open }}">
+                    <td class="text-muted" style="font-variant-numeric:tabular-nums">{{ a.appId }}</td>
+                    <td style="font-weight:600">{{ a.business }}<div class="text-muted" style="font-weight:400;font-size:12px">{{ a.contact }} · {{ a.email }}</div></td>
+                    <td>{{ a.country }}</td>
+                    <td>{{ a.type }}</td>
+                    <td class="text-muted">{{ a.submitted }}</td>
+                    <td><span class="tag {{ a.statusClass }}">{{ a.status }}</span></td>
+                    <td style="text-align:right"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round" style="color:color-mix(in srgb,var(--color-text) 40%,transparent)"><path d="m9 18 6-6-6-6"/></svg></td>
+                  </tr>
+                </sc-for>
+              </tbody>
+            </table>
+            <sc-if value="{{ noRows }}" hint-placeholder-val="{{ false }}">
+              <div class="text-muted" style="text-align:center;padding:32px">No applications match your filters.</div>
+            </sc-if>
+          </div>
+        </div>
+        </sc-if>
+
+        <!-- ───── REVIEW ───── -->
+        <sc-if value="{{ showReview }}" hint-placeholder-val="{{ false }}">
+        <div>
+          <a href="#" onClick="{{ goApplications }}" style="text-decoration:none;font-size:13px;display:inline-flex;align-items:center;gap:5px;margin-bottom:14px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>Back to applications</a>
+          <div style="display:flex;align-items:flex-start;gap:16px;margin-bottom:22px">
+            <div style="width:56px;height:56px;flex:none;border-radius:50%;background:var(--color-accent-200);color:var(--color-accent-800);display:grid;place-items:center;font-family:var(--font-heading);font-size:24px">{{ cur.initial }}</div>
+            <div style="flex:1;min-width:0">
+              <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+                <h2 style="margin:0">{{ cur.business }}</h2>
+                <span class="tag {{ cur.statusClass }}">{{ cur.status }}</span>
+                <sc-if value="{{ cur.dual }}" hint-placeholder-val="{{ false }}"><span class="tag tag-outline">Dual agent · COI required</span></sc-if>
+              </div>
+              <div class="text-muted" style="font-size:13px;margin-top:3px">{{ cur.appId }} · {{ cur.city }}, {{ cur.country }} · Submitted {{ cur.submitted }}</div>
+            </div>
+            <div style="display:flex;gap:8px;flex:none">
+              <button class="btn btn-secondary" onClick="{{ openRequest }}">Request info</button>
+              <button class="btn btn-secondary" onClick="{{ openReject }}" style="color:var(--color-accent-700)">Reject</button>
+            </div>
+          </div>
+
+          <div style="display:flex;align-items:center;margin-bottom:22px">
+            <sc-for list="{{ cur.steps }}" as="st" hint-placeholder-count="4">
+              <button onClick="{{ st.go }}" style="{{ st.btnStyle }}">
+                <span style="{{ st.circleStyle }}">{{ st.mark }}</span>
+                <span style="{{ st.labelStyle }}">{{ st.label }}</span>
+              </button>
+              <span style="{{ st.lineStyle }}"></span>
+            </sc-for>
+          </div>
+
+          <!-- STAGE 0 · Business Registration -->
+          <sc-if value="{{ cur.stg0 }}" hint-placeholder-val="{{ true }}">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+            <div class="card elev-sm">
+              <h4 style="margin:0 0 6px">Business &amp; contact</h4>
+              <div style="display:grid;grid-template-columns:auto 1fr;gap:8px 18px;font-size:14px">
+                <span class="text-muted">Business name</span><span>{{ cur.business }}</span>
+                <span class="text-muted">ABN</span><span>{{ cur.abn }}</span>
+                <span class="text-muted">ACN</span><span>{{ cur.acn }}</span>
+                <span class="text-muted">Contact person</span><span>{{ cur.contact }}</span>
+                <span class="text-muted">Email</span><span>{{ cur.email }}</span>
+                <span class="text-muted">Phone</span><span>{{ cur.phone }}</span>
+                <span class="text-muted">Agent type</span><span>{{ cur.type }}</span>
+                <span class="text-muted">MARN</span><span>{{ cur.marnLabel }}</span>
+              </div>
+              <div style="margin-top:16px">
+                <div class="card-kicker" style="margin-bottom:8px">Recruitment channel</div>
+                <div style="display:flex;gap:8px">
+                  <button onClick="{{ cur.setOnshoreOn }}" style="{{ cur.onStyle }}">Onshore</button>
+                  <button onClick="{{ cur.setOnshoreOff }}" style="{{ cur.offStyle }}">Offshore</button>
+                </div>
+                <p class="text-muted" style="font-size:12px;margin:8px 0 0;line-height:1.5">{{ cur.onshoreHint }}</p>
+              </div>
+            </div>
+            <div class="card elev-sm">
+              <h4 style="margin:0 0 6px">Registration documents</h4>
+              <p class="text-muted" style="font-size:12px;margin:0 0 8px">Verify each item to confirm the legal entity.</p>
+              <div style="display:flex;flex-direction:column;gap:10px">
+                <sc-for list="{{ cur.docsReg }}" as="d" hint-placeholder-count="3">
+                  <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:16px;{{ d.wrapStyle }}">
+                    <span style="color:{{ d.iconColor }};flex:none"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></span>
+                    <div style="flex:1;min-width:0"><div style="font-size:14px;font-weight:600">{{ d.label }}</div><div class="text-muted" style="font-size:12px">{{ d.sub }}</div></div>
+                    <div style="display:flex;align-items:center;gap:8px;flex:none">
+                      <sc-if value="{{ d.hasFile }}" hint-placeholder-val="{{ false }}"><button class="btn btn-ghost" onClick="{{ d.view }}" style="padding:5px 12px;font-size:12px">View</button></sc-if>
+                      <sc-if value="{{ d.canVerify }}" hint-placeholder-val="{{ false }}"><button class="btn btn-secondary" onClick="{{ d.verify }}" style="padding:5px 12px;font-size:12px">Verify</button></sc-if>
+                      <sc-if value="{{ d.verified }}" hint-placeholder-val="{{ false }}"><span class="tag tag-accent-2">Verified</span></sc-if>
+                      <sc-if value="{{ d.missing }}" hint-placeholder-val="{{ false }}"><button class="btn btn-secondary" onClick="{{ d.upload }}" style="padding:5px 12px;font-size:12px">Upload</button></sc-if>
+                    </div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+          </sc-if>
+
+          <!-- STAGE 1 · Certification -->
+          <sc-if value="{{ cur.stg1 }}" hint-placeholder-val="{{ false }}">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+            <div class="card elev-sm">
+              <h4 style="margin:0 0 6px">Certification documents</h4>
+              <p class="text-muted" style="font-size:12px;margin:0 0 8px">QEAC / PIER and, for dual agents, MARN.</p>
+              <div style="display:flex;flex-direction:column;gap:10px">
+                <sc-for list="{{ cur.docsCert }}" as="d" hint-placeholder-count="1">
+                  <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:16px;{{ d.wrapStyle }}">
+                    <span style="color:{{ d.iconColor }};flex:none"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></span>
+                    <div style="flex:1;min-width:0"><div style="font-size:14px;font-weight:600">{{ d.label }}</div><div class="text-muted" style="font-size:12px">{{ d.sub }}</div></div>
+                    <div style="display:flex;align-items:center;gap:8px;flex:none">
+                      <sc-if value="{{ d.hasFile }}" hint-placeholder-val="{{ false }}"><button class="btn btn-ghost" onClick="{{ d.view }}" style="padding:5px 12px;font-size:12px">View</button></sc-if>
+                      <sc-if value="{{ d.canVerify }}" hint-placeholder-val="{{ false }}"><button class="btn btn-secondary" onClick="{{ d.verify }}" style="padding:5px 12px;font-size:12px">Verify</button></sc-if>
+                      <sc-if value="{{ d.verified }}" hint-placeholder-val="{{ false }}"><span class="tag tag-accent-2">Verified</span></sc-if>
+                      <sc-if value="{{ d.missing }}" hint-placeholder-val="{{ false }}"><button class="btn btn-secondary" onClick="{{ d.upload }}" style="padding:5px 12px;font-size:12px">Upload</button></sc-if>
+                    </div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+            <div class="card elev-sm">
+              <h4 style="margin:0 0 6px">Certification register</h4>
+              <div style="display:flex;flex-direction:column;gap:2px">
+                <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--color-divider);font-size:14px"><span class="text-muted">QEAC / PIER agent</span><span class="tag {{ cur.certTagClass }}">{{ cur.certState }}</span></div>
+                <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--color-divider);font-size:14px"><span class="text-muted">ICEF / ICF membership</span><span class="tag tag-accent-2">Current</span></div>
+                <div style="display:flex;justify-content:space-between;padding:9px 0;font-size:14px"><span class="text-muted">MARN (migration advice)</span><span>{{ cur.marnLabel }}</span></div>
+              </div>
+            </div>
+          </div>
+          </sc-if>
+
+          <!-- STAGE 2 · References + acknowledgement loop -->
+          <sc-if value="{{ cur.stg2 }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;flex-direction:column;gap:16px">
+            <div class="card elev-sm">
+              <h4 style="margin:0 0 6px">Acknowledgement &amp; information collection</h4>
+              <sc-if value="{{ cur.ackNotSent }}" hint-placeholder-val="{{ true }}">
+                <p class="card-body" style="margin:0 0 12px">Send the acknowledgement and information-collection email to {{ cur.contact }} to formally begin reference verification. References can only be approved once the agent has replied.</p>
+                <div><button class="btn btn-primary" onClick="{{ cur.sendAck }}">Send acknowledgement email</button></div>
+              </sc-if>
+              <sc-if value="{{ cur.ackWaiting }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;align-items:center;gap:10px;background:var(--color-neutral-100);border:1px solid var(--color-divider);padding:11px 14px;border-radius:14px;font-size:13px;margin-bottom:12px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Acknowledgement email sent to {{ cur.email }} · awaiting reply</div>
+                <div><button class="btn btn-secondary" onClick="{{ cur.markReply }}">Mark reply received</button></div>
+              </sc-if>
+              <sc-if value="{{ cur.ackReplied }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;align-items:center;gap:10px;background:var(--color-accent-2-100);color:var(--color-accent-2-800);padding:11px 14px;border-radius:14px;font-size:13px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Acknowledgement reply received — you can now approve references.</div>
+              </sc-if>
+            </div>
+            <div class="card elev-sm">
+              <h4 style="margin:0 0 6px">Reference checks</h4>
+              <table class="table">
+                <thead><tr><th>Referee</th><th>CRICOS provider</th><th>Outcome</th><th></th></tr></thead>
+                <tbody>
+                  <sc-for list="{{ cur.referees }}" as="r" hint-placeholder-count="2">
+                    <tr>
+                      <td style="font-weight:600">{{ r.name }}</td>
+                      <td class="text-muted">{{ r.provider }}</td>
+                      <td><span class="tag {{ r.tagClass }}">{{ r.status }}</span></td>
+                      <td style="text-align:right"><sc-if value="{{ r.canMark }}" hint-placeholder-val="{{ false }}"><button class="btn btn-ghost" onClick="{{ r.mark }}" style="font-size:12px">Approve reference</button></sc-if></td>
+                    </tr>
+                  </sc-for>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          </sc-if>
+
+          <!-- STAGE 3 · Final internal review -->
+          <sc-if value="{{ cur.stg3 }}" hint-placeholder-val="{{ false }}">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+            <div class="card elev-sm">
+              <h4 style="margin:0 0 6px">Compliance checklist</h4>
+              <sc-for list="{{ cur.checklist }}" as="c" hint-placeholder-count="5">
+                <div style="display:flex;align-items:center;gap:11px;padding:8px 0;border-bottom:1px solid var(--color-divider)">
+                  <span style="width:22px;height:22px;flex:none;border-radius:50%;display:grid;place-items:center;{{ c.badgeStyle }}">{{ c.icon }}</span>
+                  <span style="flex:1;font-size:14px">{{ c.label }}</span>
+                  <span class="tag {{ c.tagClass }}">{{ c.state }}</span>
+                </div>
+              </sc-for>
+            </div>
+            <div class="card elev-sm" style="justify-content:space-between">
+              <div>
+                <h4 style="margin:0 0 6px">Final internal review</h4>
+                <p class="card-body" style="margin:0">All prior stages are complete. Confirm the compliance checklist, then approve to create the audit-log entry, send the approval email and move {{ cur.business }} into onboarding.</p>
+              </div>
+              <div style="display:flex;gap:8px;margin-top:14px">
+                <button class="btn btn-secondary" onClick="{{ openRequest }}">Request info</button>
+                <button class="btn btn-secondary" onClick="{{ openReject }}" style="color:var(--color-accent-700)">Reject</button>
+              </div>
+            </div>
+          </div>
+          </sc-if>
+
+          <!-- stage footer -->
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-top:20px;padding-top:16px;border-top:1px solid var(--color-divider)">
+            <div><sc-if value="{{ cur.showBack }}" hint-placeholder-val="{{ false }}"><button class="btn btn-ghost" onClick="{{ cur.back }}">Back</button></sc-if></div>
+            <div style="display:flex;align-items:center;gap:14px">
+              <span class="text-muted" style="font-size:13px;max-width:360px;text-align:right">{{ cur.gateNote }}</span>
+              <button class="btn btn-primary" onClick="{{ cur.primaryAction }}" disabled="{{ cur.primaryDisabled }}">{{ cur.primaryLabel }}</button>
+            </div>
+          </div>
+        </div>
+        </sc-if>
+
+        <!-- ───── ACTIVE AGENTS ───── -->
+        <sc-if value="{{ showAgents }}" hint-placeholder-val="{{ false }}">
+        <div class="card elev-sm" style="padding:6px 14px">
+          <table class="table">
+            <thead><tr><th>Agent</th><th>Country</th><th>Enrolments</th><th>Conversion</th><th>Visa refusal</th><th>Compliance</th><th>Status</th><th></th></tr></thead>
+            <tbody>
+              <sc-for list="{{ agentRows }}" as="a" hint-placeholder-count="8">
+                <tr class="amp-row" onClick="{{ a.openProfile }}">
+                  <td style="font-weight:600">{{ a.business }}<div class="text-muted" style="font-weight:400;font-size:12px">{{ a.contact }}</div></td>
+                  <td>{{ a.country }}</td>
+                  <td>{{ a.students }}</td>
+                  <td>{{ a.conversion }}%</td>
+                  <td>{{ a.visaRefusal }}%</td>
+                  <td><span class="tag {{ a.ratingClass }}">{{ a.ratingLabel }}</span></td>
+                  <td><span class="tag {{ a.statusClass }}">{{ a.status }}</span></td>
+                  <td style="text-align:right"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round" style="color:color-mix(in srgb,var(--color-text) 40%,transparent)"><path d="m9 18 6-6-6-6"/></svg></td>
+                </tr>
+              </sc-for>
+            </tbody>
+          </table>
+        </div>
+        </sc-if>
+
+        <!-- ───── AGENT PROFILE ───── -->
+        <sc-if value="{{ showProfile }}" hint-placeholder-val="{{ false }}">
+        <div>
+          <a href="#" onClick="{{ goAgents }}" style="text-decoration:none;font-size:13px;display:inline-flex;align-items:center;gap:5px;margin-bottom:14px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>Back to active agents</a>
+          <div style="display:flex;align-items:flex-start;gap:16px;margin-bottom:22px">
+            <div style="width:56px;height:56px;flex:none;border-radius:50%;background:var(--color-accent-2-200);color:var(--color-accent-2-800);display:grid;place-items:center;font-family:var(--font-heading);font-size:24px">{{ cur.initial }}</div>
+            <div style="flex:1;min-width:0">
+              <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+                <h2 style="margin:0">{{ cur.business }}</h2>
+                <span class="tag {{ cur.statusClass }}">{{ cur.status }}</span>
+                <span class="tag {{ cur.ratingClass }}">Compliance&nbsp;{{ cur.ratingLabel }}</span>
+              </div>
+              <div class="text-muted" style="font-size:13px;margin-top:3px">{{ cur.appId }} · {{ cur.city }}, {{ cur.country }} · {{ cur.contact }}</div>
+            </div>
+            <div style="display:flex;gap:8px;flex:none">
+              <button class="btn btn-secondary" onClick="{{ openRequest }}">Schedule review</button>
+              <sc-if value="{{ cur.terminable }}" hint-placeholder-val="{{ false }}"><button class="btn btn-secondary" onClick="{{ openTerminate }}" style="color:var(--color-accent-700)">Terminate</button></sc-if>
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:16px">
+            <div class="card elev-sm" style="gap:4px"><span class="card-kicker">Enrolments</span><div style="font-family:var(--font-heading);font-size:30px;line-height:1">{{ cur.students }}</div><span class="text-muted" style="font-size:12px">This intake</span></div>
+            <div class="card elev-sm" style="gap:4px"><span class="card-kicker">Conversion rate</span><div style="font-family:var(--font-heading);font-size:30px;line-height:1">{{ cur.conversion }}%</div><span class="text-muted" style="font-size:12px">Applied → enrolled</span></div>
+            <div class="card elev-sm" style="gap:4px"><span class="card-kicker">Visa refusal</span><div style="font-family:var(--font-heading);font-size:30px;line-height:1">{{ cur.visaRefusal }}%</div><span class="text-muted" style="font-size:12px">Rolling 12 months</span></div>
+            <div class="card elev-sm" style="gap:4px"><span class="card-kicker">Withdrawals</span><div style="font-family:var(--font-heading);font-size:30px;line-height:1">{{ cur.withdrawals }}</div><span class="text-muted" style="font-size:12px">Before census date</span></div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:16px">
+            <div class="card elev-sm">
+              <h4 style="margin:0 0 6px">Enrolment trend</h4>
+              <div style="display:flex;align-items:flex-end;gap:10px;height:150px;padding-top:8px">
+                <sc-for list="{{ cur.trend }}" as="b" hint-placeholder-count="6">
+                  <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;height:100%;justify-content:flex-end">
+                    <div style="width:100%;border-radius:10px 10px 4px 4px;background:var(--color-accent-2-400);height:{{ b.h }}"></div>
+                    <span class="text-muted" style="font-size:11px">{{ b.m }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+            <div class="card elev-sm">
+              <h4 style="margin:0 0 6px">Compliance &amp; certifications</h4>
+              <div style="display:flex;flex-direction:column;gap:2px">
+                <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--color-divider);font-size:14px"><span class="text-muted">QEAC / PIER</span><span>Valid · exp {{ cur.certExpiry }}</span></div>
+                <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--color-divider);font-size:14px"><span class="text-muted">PRISMS registration</span><span class="tag tag-accent-2">Registered</span></div>
+                <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--color-divider);font-size:14px"><span class="text-muted">ASQAnet notified</span><span class="tag tag-accent-2">Notified</span></div>
+                <div style="display:flex;justify-content:space-between;padding:9px 0;font-size:14px"><span class="text-muted">Agreement (ESOS)</span><span>Signed {{ cur.submitted }}</span></div>
+              </div>
+              <sc-if value="{{ cur.certExpiring }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;gap:9px;align-items:center;background:var(--color-accent-100);color:var(--color-accent-800);padding:10px 12px;border-radius:14px;font-size:13px;margin-top:6px">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+                  Certification expiring soon — request renewal proof.
+                </div>
+              </sc-if>
+            </div>
+          </div>
+
+          <div class="card elev-sm" style="margin-top:16px">
+            <h4 style="margin:0 0 6px">Post-onboarding</h4>
+            <div style="display:flex;flex-direction:column;gap:2px">
+              <sc-for list="{{ cur.onboardSteps }}" as="o" hint-placeholder-count="7">
+                <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--color-divider)">
+                  <span style="width:24px;height:24px;flex:none;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:700;font-family:var(--font-body);background:var(--color-neutral-200);color:var(--color-neutral-600)">{{ o.n }}</span>
+                  <span style="flex:1;font-size:14px">{{ o.label }}</span>
+                  <sc-if value="{{ o.done }}" hint-placeholder-val="{{ false }}"><span class="tag tag-accent-2">Done</span></sc-if>
+                  <sc-if value="{{ o.pending }}" hint-placeholder-val="{{ true }}"><button class="btn btn-secondary" onClick="{{ o.mark }}" style="padding:5px 14px;font-size:12px">{{ o.cta }}</button></sc-if>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+        </sc-if>
+
+        <!-- ───── PLACEHOLDER SECTIONS ───── -->
+        <sc-if value="{{ showStub }}" hint-placeholder-val="{{ false }}">
+        <div class="card elev-sm" style="align-items:flex-start;padding:48px;text-align:left">
+          <span class="card-kicker">{{ stubKicker }}</span>
+          <h3 style="margin:6px 0">{{ stubTitle }}</h3>
+          <p class="card-body" style="max-width:520px">{{ stubBody }}</p>
+        </div>
+        </sc-if>
+
+      </div>
+    </main>
+  </div>
+  </sc-if>
+
+  <!-- ══════════ DIALOGS ══════════ -->
+  <sc-if value="{{ showApproveD }}" hint-placeholder-val="{{ false }}">
+  <div class="dialog-backdrop" onClick="{{ closeDialog }}">
+    <div class="dialog" onClick="{{ stop }}">
+      <div class="dialog-title">Approve {{ cur.business }}?</div>
+      <div class="dialog-body">This creates an audit log entry, sends the approval email, and moves the agent to active onboarding. You'll be prompted to send a portal invitation next.</div>
+      <div class="dialog-actions"><button class="btn btn-secondary" onClick="{{ closeDialog }}">Cancel</button><button class="btn btn-primary" onClick="{{ confirmApprove }}">Confirm approval</button></div>
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ showRejectD }}" hint-placeholder-val="{{ false }}">
+  <div class="dialog-backdrop" onClick="{{ closeDialog }}">
+    <div class="dialog" onClick="{{ stop }}">
+      <div class="dialog-title">Reject application</div>
+      <div class="dialog-body">The agent receives a rejection email with your reason. This is recorded in the audit log.</div>
+      <div class="field"><label>Reason for rejection</label><textarea class="input" placeholder="e.g. QEAC certification could not be verified" value="{{ rejectReason }}" onChange="{{ onReject }}"></textarea></div>
+      <div class="dialog-actions"><button class="btn btn-secondary" onClick="{{ closeDialog }}">Cancel</button><button class="btn btn-primary" onClick="{{ confirmReject }}">Send rejection</button></div>
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ showRequestD }}" hint-placeholder-val="{{ false }}">
+  <div class="dialog-backdrop" onClick="{{ closeDialog }}">
+    <div class="dialog" onClick="{{ stop }}">
+      <div class="dialog-title">Request more information</div>
+      <div class="dialog-body">Status changes to <strong>Pending Documents</strong> and the agent is emailed the requested items.</div>
+      <div class="field"><label>Message to agent</label><textarea class="input" placeholder="Please re-upload a clear ASIC extract and your current PIER certificate." value="{{ requestNote }}" onChange="{{ onRequest }}"></textarea></div>
+      <div class="dialog-actions"><button class="btn btn-secondary" onClick="{{ closeDialog }}">Cancel</button><button class="btn btn-primary" onClick="{{ confirmRequest }}">Send request</button></div>
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ showInviteD }}" hint-placeholder-val="{{ false }}">
+  <div class="dialog-backdrop" onClick="{{ closeDialog }}">
+    <div class="dialog" onClick="{{ stop }}">
+      <div class="dialog-title">Create agent account &amp; send portal access</div>
+      <div class="dialog-body">{{ inviteName }} is approved. Create their portal account and send login credentials so they can sign in to the agent portal.</div>
+      <div class="field"><label>Portal username</label><input class="input" value="{{ cur.portalUsername }}" readonly="{{ true }}"></div>
+      <div class="field"><label>Temporary password</label>
+        <div style="display:flex;gap:8px;align-items:center">
+          <input class="input" value="{{ tempPassword }}" readonly="{{ true }}" style="flex:1;letter-spacing:1px">
+          <button class="btn btn-secondary" onClick="{{ regenPass }}" style="flex:none">Regenerate</button>
+        </div>
+        <span class="text-muted" style="font-size:12px;margin-top:6px;display:block">Agent must reset this on first sign-in.</span>
+      </div>
+      <div class="field"><label>Send login access via</label>
+        <div class="seg" style="display:flex">
+          <label class="seg-opt"><input type="radio" name="ch" checked="{{ chEmail }}" onChange="{{ pickEmail }}">Email</label>
+          <label class="seg-opt"><input type="radio" name="ch" checked="{{ chSms }}" onChange="{{ pickSms }}">SMS</label>
+          <label class="seg-opt"><input type="radio" name="ch" checked="{{ chWa }}" onChange="{{ pickWa }}">WhatsApp</label>
+        </div>
+      </div>
+      <div class="dialog-actions"><button class="btn btn-secondary" onClick="{{ closeDialog }}">Later</button><button class="btn btn-primary" onClick="{{ confirmInvite }}">Create account &amp; send access</button></div>
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ showTerminateD }}" hint-placeholder-val="{{ false }}">
+  <div class="dialog-backdrop" onClick="{{ closeDialog }}">
+    <div class="dialog" onClick="{{ stop }}">
+      <div class="dialog-title">Terminate {{ cur.business }}?</div>
+      <div class="dialog-body">Offboarding runs immediately:</div>
+      <ul style="margin:0;padding-left:18px;font-size:14px;line-height:1.7;color:color-mix(in srgb,var(--color-text) 80%,transparent)">
+        <li>Portal access disabled &amp; marketing collateral revoked</li>
+        <li>Removed from website; PRISMS updated; ASQAnet notified within 30 days</li>
+        <li>Pending student applications handed to Admissions</li>
+      </ul>
+      <div class="field"><label>Termination reason</label><textarea class="input" placeholder="e.g. Breach of ESOS Act — misleading marketing" value="{{ termReason }}" onChange="{{ onTerm }}"></textarea></div>
+      <div class="dialog-actions"><button class="btn btn-secondary" onClick="{{ closeDialog }}">Cancel</button><button class="btn btn-primary" onClick="{{ confirmTerminate }}">Terminate agent</button></div>
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ showViewDocD }}" hint-placeholder-val="{{ false }}">
+  <div class="dialog-backdrop" onClick="{{ closeDialog }}">
+    <div class="dialog" onClick="{{ stop }}" style="max-width:560px">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px">
+        <div>
+          <div class="dialog-title" style="margin:0">{{ viewDoc.title }}</div>
+          <div class="text-muted" style="font-size:13px">{{ viewDoc.issuer }}</div>
+        </div>
+        <button class="btn btn-icon btn-ghost" onClick="{{ closeDialog }}" style="flex:none"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+      </div>
+      <div style="margin-top:14px;border:1px solid var(--color-divider);border-radius:16px;overflow:hidden">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 16px;background:var(--color-accent-2-100);color:var(--color-accent-2-800)">
+          <span style="display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Official record</span>
+          <span style="font-size:12px;font-family:var(--font-body)">No. {{ viewDoc.docNo }}</span>
+        </div>
+        <div style="padding:16px 18px;background:var(--color-neutral-100)">
+          <table style="width:100%;border-collapse:collapse;font-size:14px">
+            <tbody>
+              <sc-for list="{{ viewDoc.rows }}" as="row" hint-placeholder-count="5">
+                <tr>
+                  <td style="padding:8px 0;color:var(--color-neutral-600);width:44%;vertical-align:top">{{ row.k }}</td>
+                  <td style="padding:8px 0;font-weight:600">{{ row.v }}</td>
+                </tr>
+              </sc-for>
+            </tbody>
+          </table>
+          <p class="text-muted" style="font-size:12px;margin:12px 0 0;line-height:1.5;font-style:italic">{{ viewDoc.note }}</p>
+        </div>
+      </div>
+      <div class="dialog-actions"><button class="btn btn-primary" onClick="{{ closeDialog }}">Close</button></div>
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ showUploadD }}" hint-placeholder-val="{{ false }}">
+  <div class="dialog-backdrop" onClick="{{ closeDialog }}">
+    <div class="dialog" onClick="{{ stop }}">
+      <div class="dialog-title">Upload {{ uploadDocLabel }}</div>
+      <div class="dialog-body">Attach the {{ uploadDocLabel }} for this agent. Once uploaded it can be opened and verified.</div>
+      <label style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:26px;border:2px dashed var(--color-accent-300);border-radius:16px;background:var(--color-accent-100);cursor:pointer;text-align:center">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent-700)" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M17 8l-5-5-5 5"/><path d="M12 3v12"/></svg>
+        <span style="font-size:14px;font-weight:600;color:var(--color-accent-700)">Drag a file here or browse</span>
+        <span class="text-muted" style="font-size:12px">PDF, JPG or PNG · up to 10 MB</span>
+        <input type="file" style="display:none" onChange="{{ onUploadName }}">
+      </label>
+      <div class="field" style="margin-top:12px"><label>Or pick a sample file</label>
+        <select class="input" onChange="{{ pickSample }}">
+          <option value="">Select a sample…</option>
+          <option value="registration-certificate.pdf">registration-certificate.pdf</option>
+          <option value="asic-company-extract.pdf">asic-company-extract.pdf</option>
+          <option value="passport-scan.jpg">passport-scan.jpg</option>
+        </select>
+      </div>
+      <sc-if value="{{ canConfirmUpload }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;align-items:center;gap:10px;margin-top:12px;background:var(--color-neutral-100);border:1px solid var(--color-divider);padding:11px 14px;border-radius:14px;font-size:13px">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent-2-700)" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+          <span style="flex:1;font-weight:600">{{ uploadName }}</span>
+        </div>
+      </sc-if>
+      <div class="dialog-actions"><button class="btn btn-secondary" onClick="{{ closeDialog }}">Cancel</button><button class="btn btn-primary" onClick="{{ confirmUpload }}" disabled="{{ uploadDisabled }}">Upload document</button></div>
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ showFeedbackTriggerD }}" hint-placeholder-val="{{ false }}">
+  <div class="dialog-backdrop" onClick="{{ closeDialog }}">
+    <div class="dialog" onClick="{{ stop }}">
+      <div class="dialog-title">Trigger student feedback</div>
+      <div class="dialog-body">Send a feedback survey to the {{ cur.students }} students {{ cur.business }} referred this intake. Responses are collected for compliance monitoring.</div>
+      <div class="dialog-actions"><button class="btn btn-secondary" onClick="{{ closeDialog }}">Cancel</button><button class="btn btn-primary" onClick="{{ confirmFeedbackTrigger }}">Send survey</button></div>
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ showFeedbackApprovalD }}" hint-placeholder-val="{{ false }}">
+  <div class="dialog-backdrop" onClick="{{ closeDialog }}">
+    <div class="dialog" onClick="{{ stop }}">
+      <div class="dialog-title">Approve student feedback</div>
+      <div class="dialog-body">Feedback collected for {{ cur.business }}. Approve to add it to the agent's compliance record.</div>
+      <div style="display:flex;flex-direction:column;gap:2px;font-size:14px">
+        <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--color-divider)"><span class="text-muted">Responses</span><span>12 of {{ cur.students }}</span></div>
+        <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--color-divider)"><span class="text-muted">Average rating</span><span>4.3 / 5</span></div>
+        <div style="display:flex;justify-content:space-between;padding:9px 0"><span class="text-muted">Flagged concerns</span><span class="tag tag-accent-2">None</span></div>
+      </div>
+      <div class="dialog-actions"><button class="btn btn-secondary" onClick="{{ closeDialog }}">Cancel</button><button class="btn btn-primary" onClick="{{ confirmFeedbackApproval }}">Approve feedback</button></div>
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ showReregisterD }}" hint-placeholder-val="{{ false }}">
+  <div class="dialog-backdrop" onClick="{{ closeDialog }}">
+    <div class="dialog" onClick="{{ stop }}">
+      <div class="dialog-title">Trigger re-registration</div>
+      <div class="dialog-body">Start the re-registration cycle for {{ cur.business }}. The agent is asked to renew their QEAC / PIER certificate and re-sign the written agreement.</div>
+      <div style="display:flex;flex-direction:column;gap:2px;font-size:14px">
+        <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--color-divider)"><span class="text-muted">QEAC / PIER expires</span><span>{{ cur.certExpiry }}</span></div>
+        <div style="display:flex;justify-content:space-between;padding:9px 0"><span class="text-muted">Written agreement</span><span>Renew on re-registration</span></div>
+      </div>
+      <div class="dialog-actions"><button class="btn btn-secondary" onClick="{{ closeDialog }}">Cancel</button><button class="btn btn-primary" onClick="{{ confirmReregister }}">Trigger re-registration</button></div>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- Toast -->
+  <sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+    <div class="elev-lg" style="position:fixed;bottom:26px;left:50%;transform:translateX(-50%);background:var(--color-accent-2-700);color:var(--color-bg);padding:12px 20px;border-radius:999px;font-size:14px;display:flex;align-items:center;gap:9px;z-index:50">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>{{ toast }}
+    </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:940},&quot;startScreen&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Login&quot;,&quot;Dashboard&quot;],&quot;default&quot;:&quot;Login&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Prototype&quot;},&quot;portalName&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Agent Management Portal&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Branding&quot;},&quot;collegeName&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Australian College&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Branding&quot;}}">
+class Component extends DCLogic {
+  constructor(props){
+    super(props);
+    const raw = [
+      {business:"Global Reach Education", contact:"Priya Sharma", country:"India", city:"Mumbai", email:"priya@globalreach.in", phone:"+91 98200 11234", status:"New Request", submitted:"08 Aug 2026", abn:"—", acn:"—", referees:[{name:"Meera Iyer",provider:"Bright CRICOS Institute",status:"Pending"},{name:"David Chan",provider:"Harbour College",status:"Pending"}]},
+      {business:"Himalayan Pathways", contact:"Anish Gurung", country:"Nepal", city:"Kathmandu", email:"anish@himalayanpath.np", phone:"+977 9841 552210", status:"In Review", submitted:"06 Aug 2026", onshore:true, pending:["pier"], referees:[{name:"S. Thapa",provider:"Sydney Skills Academy",status:"Passed"},{name:"R. Lama",provider:"Coastline College",status:"Pending"}]},
+      {business:"Dragon Gate Consultants", contact:"Li Wei", country:"China", city:"Beijing", email:"liwei@dragongate.cn", phone:"+86 138 0011 8899", status:"Active", submitted:"14 Feb 2026", students:62, conversion:71, visaRefusal:4, withdrawals:2, rating:"A", certExpiry:"Mar 2027"},
+      {business:"Saigon Study Abroad", contact:"Tran Minh", country:"Vietnam", city:"Ho Chi Minh City", email:"minh@saigonstudy.vn", phone:"+84 90 123 4567", status:"New Request", submitted:"08 Aug 2026", missing:["asic"], referees:[{name:"H. Nguyen",provider:"Delta Institute",status:"Pending"},{name:"—",provider:"—",status:"Pending"}]},
+      {business:"Dhaka Global Ed", contact:"Rahim Ahmed", country:"Bangladesh", city:"Dhaka", email:"rahim@dhakaglobal.bd", phone:"+880 171 234 5678", status:"Pending Documents", submitted:"01 Aug 2026", dual:true, missing:["pier"], referees:[{name:"K. Islam",provider:"Metro College",status:"Passed"},{name:"—",provider:"—",status:"Pending"}]},
+      {business:"Colombo Futures", contact:"Nimal Perera", country:"Sri Lanka", city:"Colombo", email:"nimal@colombofutures.lk", phone:"+94 77 345 6789", status:"Approved", submitted:"28 Jul 2026", referees:[{name:"A. Fernando",provider:"Island TAFE",status:"Passed"},{name:"P. Silva",provider:"Cyan College",status:"Passed"}]},
+      {business:"Manila EduLink", contact:"Jose Cruz", country:"Philippines", city:"Manila", email:"jose@manilaedulink.ph", phone:"+63 917 555 0101", status:"Active", submitted:"03 Jan 2026", students:48, conversion:66, visaRefusal:6, withdrawals:3, rating:"A", certExpiry:"Sep 2027"},
+      {business:"Jakarta Bright", contact:"Sari Dewi", country:"Indonesia", city:"Jakarta", email:"sari@jakartabright.id", phone:"+62 812 3456 7890", status:"In Review", submitted:"05 Aug 2026", onshore:true, referees:[{name:"B. Wijaya",provider:"Summit College",status:"Pending"},{name:"—",provider:"—",status:"Pending"}]},
+      {business:"Nairobi Scholars", contact:"Wanjiru Kamau", country:"Kenya", city:"Nairobi", email:"wanjiru@nairobischolars.ke", phone:"+254 722 112 233", status:"New Request", submitted:"07 Aug 2026", referees:[{name:"J. Otieno",provider:"Riverside Institute",status:"Pending"},{name:"—",provider:"—",status:"Pending"}]},
+      {business:"Lagos Pathfinders", contact:"Chidi Okoro", country:"Nigeria", city:"Lagos", email:"chidi@lagospath.ng", phone:"+234 803 111 2222", status:"Rejected", submitted:"22 Jul 2026"},
+      {business:"Bogotá Estudia", contact:"Camila Rojas", country:"Colombia", city:"Bogotá", email:"camila@bogotaestudia.co", phone:"+57 310 456 7890", status:"Active", submitted:"11 Mar 2026", students:29, conversion:58, visaRefusal:9, withdrawals:4, rating:"B", certExpiry:"Jan 2027"},
+      {business:"Karachi Edu Partners", contact:"Bilal Khan", country:"Pakistan", city:"Karachi", email:"bilal@karachiedu.pk", phone:"+92 300 123 4567", status:"Terminated", submitted:"09 Nov 2025", students:12, conversion:41, visaRefusal:22, withdrawals:7, rating:"C", certExpiry:"—"},
+      {business:"São Paulo Learn", contact:"Lucas Silva", country:"Brazil", city:"São Paulo", email:"lucas@splearn.br", phone:"+55 11 91234 5678", status:"Approved", submitted:"30 Jul 2026", referees:[{name:"M. Costa",provider:"Anchor College",status:"Passed"},{name:"R. Alves",provider:"Vista Institute",status:"Passed"}]},
+      {business:"Dubai Global Study", contact:"Fatima Al Nuaimi", country:"UAE", city:"Dubai", email:"fatima@dubaiglobal.ae", phone:"+971 50 123 4567", status:"Active", submitted:"20 Jan 2026", dual:true, students:37, conversion:63, visaRefusal:7, withdrawals:2, rating:"A", certExpiry:"May 2027"},
+      {business:"Punjab Overseas", contact:"Gurpreet Singh", country:"India", city:"Chandigarh", email:"gurpreet@punjaboverseas.in", phone:"+91 98765 43210", status:"In Review", submitted:"04 Aug 2026", referees:[{name:"H. Kaur",provider:"Northline College",status:"Pending"},{name:"—",provider:"—",status:"Pending"}]},
+      {business:"Hanoi EduBridge", contact:"Pham Thu", country:"Vietnam", city:"Hanoi", email:"thu@hanoiedubridge.vn", phone:"+84 91 234 5678", status:"New Request", submitted:"07 Aug 2026", referees:[{name:"—",provider:"—",status:"Pending"},{name:"—",provider:"—",status:"Pending"}]},
+      {business:"Kathmandu Connect", contact:"Sunita Rai", country:"Nepal", city:"Pokhara", email:"sunita@ktmconnect.np", phone:"+977 9812 334455", status:"Active", submitted:"18 Feb 2026", students:24, conversion:55, visaRefusal:11, withdrawals:5, rating:"B", certExpiry:"Sep 2026", certExpiring:true},
+      {business:"Chennai Global", contact:"Deepa Nair", country:"India", city:"Chennai", email:"deepa@chennaiglobal.in", phone:"+91 90000 12345", status:"Pending Documents", submitted:"02 Aug 2026", missing:["asic"], referees:[{name:"V. Rao",provider:"Peninsula TAFE",status:"Passed"},{name:"—",provider:"—",status:"Pending"}]},
+    ];
+    const start = (this.props.startScreen || 'Login');
+    this.state = {
+      view: start === 'Dashboard' ? 'app' : 'login',
+      nav: 'dashboard', navStack: [], filter: 'All', search: '',
+      currentId: null, dialog: null,
+      email:'robin.admin@australiancollege.edu.au', password:'AgentPortal26',
+      rejectReason:'', requestNote:'', inviteChannel:'Email', termReason:'', tempPassword:'',
+      toast: null,
+      agents: raw.map((r,i)=>this.build(r,i)),
+    };
+  }
+  build(r,i){
+    const miss=(k)=> (r.missing||[]).includes(k);
+    const pend=(k)=> (r.pending||[]).includes(k);
+    const st=(k)=> miss(k)?'missing':(pend(k)?'pending':'verified');
+    const docs=[
+      {key:'reg', label:'Business Registration', status:st('reg')},
+      {key:'asic', label:'ASIC Extract', status:st('asic')},
+      {key:'id', label:'Identity Documents', status:st('id')},
+      {key:'pier', label:'QEAC / PIER Certificate', status:st('pier')},
+    ];
+    if(r.dual) docs.push({key:'marn', label:'MARN Registration', status:st('marn')});
+    return {
+      id:i+1, appId:'AMP-26-'+String(1001+i),
+      business:r.business, contact:r.contact, country:r.country, city:r.city,
+      email:r.email, phone:r.phone, dual:!!r.dual,
+      type: r.dual?'Dual (Migration)':'Education',
+      abn: r.abn!==undefined?r.abn:('53 '+(100+i)+' '+(200+i)+' '+(300+i)),
+      acn: r.acn!==undefined?r.acn:((100+i)+' '+(200+i)+' '+(300+i)),
+      marn: r.dual? ('MARN '+(1600000+i*137)) : '',
+      submitted:r.submitted, status:r.status,
+      students:r.students||0, conversion:r.conversion||0, visaRefusal:r.visaRefusal||0, withdrawals:r.withdrawals||0,
+      rating:r.rating||'', certExpiry:r.certExpiry||'—', certExpiring:!!r.certExpiring,
+      docs, referees:r.referees||[{name:'—',provider:'—',status:'Pending'},{name:'—',provider:'—',status:'Pending'}],
+      onshore: !!r.onshore, stage:0, ackSent:false, ackReplied:false, onboard:{},
+    };
+  }
+  // ── helpers ──
+  statusClass(s){
+    return {'New Request':'tag-accent','In Review':'tag-neutral','Pending Documents':'tag-outline','Approved':'tag-accent-2','Active':'tag-accent-2','Rejected':'tag-neutral','Terminated':'tag-neutral'}[s]||'tag-neutral';
+  }
+  ratingInfo(r){
+    if(r==='A') return {label:'A · Excellent', cls:'tag-accent-2'};
+    if(r==='B') return {label:'B · Good', cls:'tag-neutral'};
+    if(r==='C') return {label:'C · At risk', cls:'tag-accent'};
+    return {label:'—', cls:'tag-neutral'};
+  }
+  toastMsg(m){ this.setState({toast:m}); clearTimeout(this._t); this._t=setTimeout(()=>this.setState({toast:null}),2800); }
+  genPass(){ const c='ABCDEFGHJKMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789'; let p=''; for(let i=0;i<8;i++)p+=c[Math.floor(Math.random()*c.length)]; return p.slice(0,4)+'-'+p.slice(4,8); }
+  navTo(nav, extra){ this.setState(s=> (s.nav===nav && !extra) ? {} : ({navStack:[...s.navStack, s.nav], nav, ...(extra||{})})); }
+  navBack(){ this.setState(s=> s.navStack.length ? ({nav:s.navStack[s.navStack.length-1], navStack:s.navStack.slice(0,-1)}) : ({nav:'dashboard'})); }
+  docTemplate(cur, key){
+    if(!cur) return null;
+    const acn=cur.acn||'000 000 000', abn=cur.abn||'00 000 000 000';
+    const df=(k)=>{ const d=(cur.docs||[]).find(x=>x.key===k); return d&&d.file; };
+    if(key==='reg') return {
+      title:'Certificate of Registration', issuer:'Australian Securities & Investments Commission',
+      docNo:'ASIC-REG-'+acn.replace(/\s/g,''), issued:'12 Jan 2022', file:df('reg'),
+      rows:[['Company name', cur.business.toUpperCase()+' PTY LTD'],['ACN', acn],['Company type','Australian proprietary company, limited by shares'],['Registration date','12 January 2022'],['Registered in','New South Wales'],['Status','Registered']].map(r=>({k:r[0],v:r[1]})),
+      note:'This certifies that the company named above was registered under the Corporations Act 2001.'
+    };
+    if(key==='asic') return {
+      title:'Current Company Extract', issuer:'Australian Securities & Investments Commission',
+      docNo:'ASIC-EXT-'+acn.replace(/\s/g,''), issued:cur.submitted, file:df('asic'),
+      rows:[['ABN', abn],['ACN', acn],['Registered office', cur.city+', '+cur.country],['Principal place of business', cur.city],['Officeholder / Director', cur.contact],['Company status','Active — good standing'],['Extract date', cur.submitted]].map(r=>({k:r[0],v:r[1]})),
+      note:'Extract obtained directly from the ASIC register. Verify officeholder matches the applicant contact.'
+    };
+    if(key==='id') return {
+      title:'Identity Verification', issuer:'Government-issued photo identification',
+      docNo:'ID-'+String(1000+(cur.id||1)), issued:'—', file:df('id'),
+      rows:[['Full name', cur.contact],['Document type','Passport'],['Nationality', cur.country],['Role','Director / authorised contact'],['Verified against','Company extract officeholder']].map(r=>({k:r[0],v:r[1]})),
+      note:'Confirm the name and photo match the officeholder listed on the ASIC extract.'
+    };
+    if(key==='pier') return {
+      title:'QEAC / PIER Certificate', issuer:'PIER Online — Qualified Education Agent Counsellor',
+      docNo:'QEAC-'+String(50000+(cur.id||1)), issued:'01 Mar 2025', file:df('pier'),
+      rows:[['Certified counsellor', cur.contact],['QEAC number','Q'+String(50000+(cur.id||1))],['Status','Current'],['Expiry', cur.certExpiry||'01 Mar 2027']].map(r=>({k:r[0],v:r[1]})),
+      note:'QEAC certification confirms the counsellor has completed the recognised training program.'
+    };
+    if(key==='marn') return {
+      title:'MARN Registration', issuer:'Office of the Migration Agents Registration Authority',
+      docNo:cur.marn||'MARN-0000000', issued:'—', file:df('marn'),
+      rows:[['Registered migration agent', cur.contact],['MARN', cur.marn||'—'],['Status','Registered']].map(r=>({k:r[0],v:r[1]})),
+      note:'Required only where the agent also provides migration advice.'
+    };
+    return {title:'Document', issuer:'', docNo:'', issued:'', rows:[], note:''};
+  }
+  setStatus(id,status){ this.setState(s=>({agents:s.agents.map(a=>a.id===id?{...a,status}:a)})); }
+  nStyle(active){ return {display:'flex',alignItems:'center',gap:'11px',width:'100%',textAlign:'left',padding:'11px 13px',borderRadius:'999px',cursor:'pointer',fontSize:'14px',fontFamily:'var(--font-body)',fontWeight:600,border:'none',
+      color: active?'var(--color-bg)':'var(--color-text)', background: active?'var(--color-accent)':'transparent'}; }
+  filterStyle(active){ return {padding:'7px 15px',borderRadius:'999px',cursor:'pointer',fontSize:'13px',fontFamily:'var(--font-body)',fontWeight:600,
+      border:'1px solid '+(active?'var(--color-accent)':'var(--color-divider)'),
+      color: active?'var(--color-bg)':'var(--color-text)', background: active?'var(--color-accent)':'transparent'}; }
+  ico(name){
+    const P={dash:'M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z',users:'M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8',
+      clock:'M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20M12 6v6l4 2', check:'M20 6 9 17l-5-5', file:'M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zM14 2v6h6',
+      alert:'m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3ZM12 9v4M12 17h.01', shield:'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10'};
+    return React.createElement('svg',{width:16,height:16,viewBox:'0 0 24 24',fill:'none',stroke:'currentColor',strokeWidth:2.75,strokeLinecap:'round',strokeLinejoin:'round'}, React.createElement('path',{d:P[name]}));
+  }
+  checkIcon(ok){ return React.createElement('svg',{width:13,height:13,viewBox:'0 0 24 24',fill:'none',stroke:'currentColor',strokeWidth:3,strokeLinecap:'round',strokeLinejoin:'round'}, ok?React.createElement('path',{d:'M20 6 9 17l-5-5'}):React.createElement('path',{d:'M18 6 6 18M6 6l12 12'})); }
+
+  enrich(a){
+    const self=this;
+    return Object.assign({}, a, {
+      statusClass: this.statusClass(a.status),
+      ratingClass: this.ratingInfo(a.rating).cls,
+      ratingLabel: this.ratingInfo(a.rating).label,
+      open: ()=> self.navTo('review',{currentId:a.id}),
+      openProfile: ()=> self.navTo('profile',{currentId:a.id}),
+    });
+  }
+
+  renderVals(){
+    const s=this.state, self=this;
+    const collegeName=this.props.collegeName || 'Australian College';
+    const portalName=this.props.portalName || 'Agent Management Portal';
+    const view=s.view;
+    const isApp = view==='app';
+    const count=(st)=> s.agents.filter(a=>a.status===st).length;
+    const cur = s.agents.find(a=>a.id===s.currentId);
+
+    // stats
+    const stats=[
+      {label:'Total Agents', value:s.agents.length, note:'Across 12 countries', icon:this.ico('users')},
+      {label:'New Requests', value:count('New Request'), note:'Awaiting first review', icon:this.ico('file')},
+      {label:'Active Agents', value:count('Active'), note:'Currently recruiting', icon:this.ico('shield')},
+      {label:'Pending Reviews', value:count('In Review')+count('Pending Documents'), note:'In your queue', icon:this.ico('clock')},
+      {label:'Expiring Certs', value:s.agents.filter(a=>a.certExpiring).length, note:'Renewal needed', icon:this.ico('alert')},
+      {label:'Collateral Updated', value:2, note:'This week', icon:this.ico('file')},
+    ];
+    const recent=s.agents.filter(a=>['New Request','In Review'].includes(a.status)).slice(0,6).map(a=>this.enrich(a));
+    const actions=s.agents.filter(a=>['New Request','Pending Documents'].includes(a.status)).slice(0,4).map(a=>({
+      icon:this.ico(a.status==='New Request'?'file':'alert'),
+      title:(a.status==='New Request'?'Review new application — ':'Follow up documents — ')+a.business,
+      detail:a.status==='New Request'?('Submitted '+a.submitted+' · '+a.country):('Awaiting re-upload · '+a.country),
+      open:()=>self.navTo('review',{currentId:a.id}),
+    }));
+
+    // filters
+    const fdefs=['All','New Request','In Review','Pending Documents','Approved','Rejected','Active','Terminated'];
+    const filters=fdefs.map(f=>({label:f, count: f==='All'?s.agents.length:count(f), style:this.filterStyle(s.filter===f), select:()=>self.setState({filter:f})}));
+
+    const q=s.search.trim().toLowerCase();
+    const match=(a)=> !q || [a.business,a.contact,a.country,a.email,a.phone].join(' ').toLowerCase().includes(q);
+    const appRows=s.agents.filter(a=>(s.filter==='All'||a.status===s.filter)&&match(a)).map(a=>this.enrich(a));
+    const agentRows=s.agents.filter(a=>['Active','Terminated'].includes(a.status)&&match(a)).map(a=>this.enrich(a));
+
+    // current agent enriched for review/profile
+    let curV=null;
+    if(cur){
+      const docs=cur.docs.map(d=>({
+        key:d.key,
+        label:d.label,
+        sub: d.status==='verified'?'Uploaded · matched':(d.status==='pending'?(d.file? d.file+' · uploaded':'Uploaded · needs verification'):'Not provided'),
+        verified:d.status==='verified', missing:d.status==='missing', canVerify:d.status==='pending',
+        hasFile: d.status!=='missing',
+        iconColor: d.status==='missing'?'var(--color-accent-700)':(d.status==='verified'?'var(--color-accent-2-700)':'var(--color-neutral-600)'),
+        wrapStyle: d.status==='missing'?'background:var(--color-accent-100);border:1px solid var(--color-accent-300)':'background:var(--color-neutral-100);border:1px solid var(--color-divider)',
+        verify:()=> self.setState(st=>({agents:st.agents.map(a=>a.id===cur.id?{...a,docs:a.docs.map(x=>x.key===d.key?{...x,status:'verified'}:x)}:a)})),
+        view:()=> self.setState({dialog:'viewdoc', viewDocKey:d.key}),
+        upload:()=> self.setState({dialog:'upload', uploadKey:d.key, uploadName:''}),
+      }));
+      const dv=(k)=>{ const d=cur.docs.find(x=>x.key===k); return d && d.status==='verified'; };
+      const refsPassed = cur.referees.every(r=>r.status==='Passed');
+      const cl=[
+        {label:'Legal entity & identity verified', met: dv('reg')&&dv('id')},
+        {label:'Business registration (ASIC)', met: dv('reg')&&dv('asic')},
+        {label:'QEAC / PIER certification', met: dv('pier')},
+        {label:'MARN (dual agents only)', met: !cur.dual || dv('marn')},
+        {label:'Reference checks completed', met: refsPassed},
+      ].map(c=>({label:c.label, state:c.met?'Met':'Pending', tagClass:c.met?'tag-accent-2':'tag-neutral',
+        icon:this.checkIcon(c.met),
+        badgeStyle: c.met?'background:var(--color-accent-2-500);color:var(--color-bg)':'background:var(--color-neutral-300);color:var(--color-neutral-700)'}));
+      const referees=cur.referees.map((r,idx)=>({name:r.name, provider:r.provider, status:r.status,
+        tagClass: r.status==='Passed'?'tag-accent-2':'tag-neutral',
+        canMark: cur.ackReplied && r.status!=='Passed' && r.name!=='—',
+        mark:()=> self.setState(st=>({agents:st.agents.map(a=>a.id===cur.id?{...a,referees:a.referees.map((x,j)=>j===idx?{...x,status:'Passed'}:x)}:a)})),
+      }));
+      const heights=[52,64,48,72,60,80];
+      const months=['Mar','Apr','May','Jun','Jul','Aug'];
+      const trend=months.map((m,i)=>({m, h:(heights[i]+ (cur.id*3)%20)+'%'}));
+
+      // ── staged review workflow ──
+      const setAgent=(patch)=> self.setState(st=>({agents:st.agents.map(a=>a.id===cur.id?{...a,...patch}:a)}));
+      const stage=cur.stage||0;
+      const gate0=dv('reg')&&dv('asic')&&dv('id');
+      const gate1=dv('pier')&&(!cur.dual||dv('marn'));
+      const realRefs=cur.referees.filter(r=>r.name!=='—');
+      const refsAllPassed=realRefs.length>0 && realRefs.every(r=>r.status==='Passed');
+      const gate2=cur.ackReplied && refsAllPassed;
+      const gates=[gate0,gate1,gate2,true];
+      const reach=[true,gate0,gate0&&gate1,gate0&&gate1&&gate2];
+      const circleStyle=(done,active)=>({width:'26px',height:'26px',flex:'none',borderRadius:'50%',display:'grid',placeItems:'center',fontSize:'13px',fontWeight:700,fontFamily:'var(--font-body)',background: done?'var(--color-accent-2-500)':(active?'var(--color-accent)':'var(--color-neutral-200)'),color: done||active?'var(--color-bg)':'var(--color-neutral-600)'});
+      const stepNames=['Business Registration','Certification','References','Final Review'];
+      const steps=stepNames.map((nm,i)=>({label:nm, mark: i<stage?'\u2713':String(i+1),
+        go: reach[i]?(()=>setAgent({stage:i})):(()=>{}),
+        btnStyle:{display:'flex',alignItems:'center',gap:'9px',flex:'none',background:'none',border:'none',cursor:reach[i]?'pointer':'default',padding:'0 4px',fontFamily:'var(--font-body)'},
+        circleStyle:circleStyle(i<stage,i===stage),
+        labelStyle:{fontSize:'13px',fontWeight:i===stage?700:600,color:(i===stage||i<stage)?'var(--color-text)':'var(--color-neutral-500)',whiteSpace:'nowrap'},
+        lineStyle:{flex: i<3?'1':'0',height:'2px',minWidth:i<3?'16px':'0',margin:'0 4px',background: i<stage?'var(--color-accent-2-500)':'var(--color-divider)'},
+      }));
+      const gateNotes=['Verify all registration documents to continue.','Verify the certification to continue.','Send the acknowledgement email, receive the reply and approve references to continue.',''];
+      const regKeys=['reg','asic','id'], certKeys=['pier','marn'];
+      const unameParts=(cur.contact||'').trim().split(/\s+/);
+      const uname=(unameParts.length>=2?(unameParts[0][0]+unameParts[unameParts.length-1]):(cur.business||'agent')).toLowerCase().replace(/[^a-z0-9]/g,'').slice(0,14);
+      const portalUsername=uname+'@agents.'+collegeName.toLowerCase().replace(/[^a-z0-9]/g,'')+'.edu.au';
+      curV=Object.assign({}, cur, {
+        initial:cur.business.charAt(0),
+        statusClass:this.statusClass(cur.status),
+        ratingClass:this.ratingInfo(cur.rating).cls,
+        ratingLabel:this.ratingInfo(cur.rating).label,
+        marnLabel: cur.dual? cur.marn : 'Not applicable',
+        docs, docsReg:docs.filter(d=>regKeys.includes(d.key)), docsCert:docs.filter(d=>certKeys.includes(d.key)),
+        checklist:cl, referees, trend,
+        terminable: cur.status!=='Terminated',
+        steps, stg0:stage===0, stg1:stage===1, stg2:stage===2, stg3:stage===3,
+        onshore:cur.onshore, onStyle:this.filterStyle(cur.onshore), offStyle:this.filterStyle(!cur.onshore),
+        setOnshoreOn:()=>setAgent({onshore:true}), setOnshoreOff:()=>setAgent({onshore:false}),
+        onshoreHint: cur.onshore?'Recruits students already in Australia — verify education-agent registration and ABN/ACN with ASIC.':'Recruits students overseas — verify overseas business registration alongside the ABN/ACN.',
+        certState: dv('pier')?'Verified':'Pending', certTagClass: dv('pier')?'tag-accent-2':'tag-neutral',
+        ackNotSent:!cur.ackSent, ackWaiting:cur.ackSent&&!cur.ackReplied, ackReplied:cur.ackReplied,
+        sendAck:()=>{ setAgent({ackSent:true}); this.toastMsg('Acknowledgement & information-collection email sent'); },
+        markReply:()=>{ setAgent({ackReplied:true}); this.toastMsg('Acknowledgement reply received'); },
+        showBack: stage>0, back:()=> setAgent({stage:Math.max(0,stage-1)}),
+        primaryLabel: stage<3?'Continue':'Approve agent',
+        primaryDisabled: !gates[stage],
+        primaryAction: stage<3 ? (()=>{ if(gates[stage]) setAgent({stage:stage+1}); }) : (()=> self.setState({dialog:'approve'})),
+        gateNote: gates[stage]?'':gateNotes[stage],
+        portalUsername,
+        onboardSteps: [
+          {key:'prisms',label:'Onboard into PRISMS',cta:'Onboard'},
+          {key:'asqanet',label:'Onboard into ASQAnet',cta:'Onboard'},
+          {key:'collateral',label:'Share collaterals — enablement',cta:'Share'},
+          {key:'feedbackTrigger',label:'Student feedback trigger',cta:'Trigger'},
+          {key:'feedbackApproval',label:'Student feedback approval',cta:'Approve'},
+          {key:'monitoring',label:'Compliance monitoring',cta:'Start'},
+          {key:'reregister',label:'Re-register triggers',cta:'Trigger'},
+        ].map((d,i)=>{ const ob=cur.onboard||{}; const dlg={feedbackTrigger:1,feedbackApproval:1,reregister:1}; return {n:i+1, label:d.label, cta:d.cta, done:!!ob[d.key], pending:!ob[d.key], mark: dlg[d.key]?(()=>self.setState({dialog:d.key})):(()=>setAgent({onboard:{...ob,[d.key]:true}}))}; }),
+      });
+    }
+
+    // page title
+    const titles={dashboard:['Good morning, Robin','Here\u2019s what needs your attention today'],
+      applications:['Agent Applications','Review, verify and process incoming agents'],
+      review:['Review Application', curV?curV.business:''],
+      agents:['Active Agents','Monitor performance and compliance'],
+      profile:['Agent Profile', curV?curV.business:''],
+      collateral:['Marketing Collateral','Single source of truth for approved materials'],
+      compliance:['Compliance','Certifications, PRISMS & ASQAnet status'],
+      reports:['Reports & Insights','Vendor master, compliance and risk analytics']};
+    const t=titles[s.nav]||titles.dashboard;
+
+    const stubMap={
+      collateral:['Collateral control','Version-controlled marketing library','Course guides, fee schedules and student handbooks live here as a single source of truth. Publishing a new version auto-notifies every active agent, marks old files obsolete and records download history — this section is stubbed for the current pass.'],
+      compliance:['Compliance monitoring','PRISMS & ASQAnet register','A consolidated view of every agent\u2019s certification expiry, PRISMS registration and ASQAnet notification status, with 30-day deadline reminders — stubbed for the current pass.'],
+      reports:['Reports','Vendor master & risk analytics','Vendor master, duplicate detection, pricing/commission, compliance-document status and blocking/risk-profile reports — stubbed for the current pass.'],
+    };
+    const stub=stubMap[s.nav];
+
+    // ── dashboard (compliance-risk framing) ──
+    const byBiz=(name)=> s.agents.find(a=>a.business===name);
+    const openAgent=(name)=>()=>{ const a=byBiz(name); if(!a)return; self.navTo(['Active','Terminated'].includes(a.status)?'profile':'review',{currentId:a.id}); };
+    const accent7='var(--color-accent-700)', ink='var(--color-text)', sage7='var(--color-accent-2-700)';
+    const riskStats=[
+      {label:'Critical Issues', value:3, note:'Require action today', color:accent7},
+      {label:'Pending Onboarding', value:count('New Request')+count('In Review')+count('Pending Documents'), note:'Awaiting completion', color:ink},
+      {label:'Reviews Due', value:7, note:'Within 30 days', color:ink},
+      {label:'Agreements Expiring', value:5, note:'Within 60 days', color:'var(--color-accent-600)'},
+      {label:'Commission Holds', value:4, note:'Need compliance review', color:ink},
+    ];
+    const prC={Critical:'tag-accent', High:'tag-outline', Medium:'tag-neutral'};
+    const wqDef=[
+      {priority:'Critical', agent:'Karachi Edu Partners', action:'Agreement expired — suspend new referrals', due:'Today', dueColor:accent7, cta:'Open'},
+      {priority:'High', agent:'Himalayan Pathways', action:'Verify QEAC / PIER certificate', due:'Tomorrow', dueColor:ink, cta:'Open'},
+      {priority:'High', agent:'Kathmandu Connect', action:'Complete annual monitoring review', due:'12 Aug', dueColor:ink, cta:'Start'},
+      {priority:'Medium', agent:'Chennai Global', action:'Re-upload ASIC extract', due:'15 Aug', dueColor:ink, cta:'Review'},
+    ];
+    const workQueue=wqDef.map(w=>Object.assign({}, w, {prClass:prC[w.priority], open:openAgent(w.agent)}));
+    const hc=(p)=> p>=90?'var(--color-accent-2-700)':(p>=82?'var(--color-accent-2-600)':(p>=75?'var(--color-accent-500)':'var(--color-accent-600)'));
+    const hDef=[
+      {label:'Written agreements current', pct:92},{label:'Monitoring reviews current', pct:84},
+      {label:'Credentials verified', pct:96},{label:'PRISMS records reconciled', pct:89},
+      {label:'ASQAnet updated', pct:78},{label:'Website references updated', pct:71},
+    ];
+    const health=hDef.map(h=>Object.assign({}, h, {color:hc(h.pct), width:h.pct+'%'}));
+    const deadlines=[
+      {name:'Kathmandu Connect', sub:'QEAC credential expires', days:'12 days', color:accent7},
+      {name:'Bogotá Estudia', sub:'PIER renewal due', days:'21 days', color:ink},
+      {name:'Manila EduLink', sub:'Annual monitoring review', days:'28 days', color:ink},
+    ];
+    const wlDef=[
+      {name:'Karachi Edu Partners', sub:'Terminated · 22% visa refusal', level:'Critical', levelClass:'tag-accent', dot:'var(--color-accent-500)'},
+      {name:'Kathmandu Connect', sub:'QEAC certificate expiring', level:'High', levelClass:'tag-outline', dot:'var(--color-accent-400)'},
+      {name:'Bogotá Estudia', sub:'Rising withdrawal rate', level:'Medium', levelClass:'tag-neutral', dot:'var(--color-neutral-400)'},
+    ];
+    const watchlist=wlDef.map(w=>Object.assign({}, w, {open:openAgent(w.name)}));
+
+    return {
+      collegeName, portalName,
+      isLogin:view==='login', isMfa:view==='mfa', isApp,
+      email:s.email, password:s.password,
+      onEmail:(e)=>this.setState({email:e.target.value}), onPassword:(e)=>this.setState({password:e.target.value}),
+      signIn:()=>this.setState({view:'mfa'}), signInSso:()=>this.setState({view:'mfa'}),
+      mfaNext:(e)=>{ e.target.value=e.target.value.replace(/[^0-9]/g,'').slice(0,1); if(e.target.value && e.target.nextElementSibling && e.target.nextElementSibling.focus) e.target.nextElementSibling.focus(); },
+      mfaKey:(e)=>{ if(e.key==='Backspace' && !e.target.value && e.target.previousElementSibling && e.target.previousElementSibling.focus) e.target.previousElementSibling.focus(); if(e.key==='Enter') this.setState({view:'app', nav:'dashboard'}); },
+      verifyMfa:()=>this.setState({view:'app', nav:'dashboard'}), backToLogin:()=>this.setState({view:'login'}),
+      logout:()=>this.setState({view:'login', nav:'dashboard', currentId:null, dialog:null}),
+      navStyle:{dashboard:this.nStyle(s.nav==='dashboard'), applications:this.nStyle(s.nav==='applications'||s.nav==='review'), agents:this.nStyle(s.nav==='agents'||s.nav==='profile'), collateral:this.nStyle(s.nav==='collateral'), compliance:this.nStyle(s.nav==='compliance'), reports:this.nStyle(s.nav==='reports')},
+      goDashboard:()=>this.navTo('dashboard'), goApplications:()=>this.navTo('applications'),
+      goAgents:()=>this.navTo('agents'), goCollateral:()=>this.navTo('collateral'),
+      goCompliance:()=>this.navTo('compliance'), goReports:()=>this.navTo('reports'),
+      canBack: s.navStack.length>0, goBack:()=>this.navBack(),
+      newCount: count('New Request')||false,
+      pageTitle:t[0], pageSub:t[1],
+      search:s.search, onSearch:(e)=>this.setState({search:e.target.value}),
+      showDashboard:s.nav==='dashboard', showApplications:s.nav==='applications',
+      showReview:s.nav==='review'&&!!curV, showAgents:s.nav==='agents', showProfile:s.nav==='profile'&&!!curV,
+      showStub:!!stub, stubKicker:stub?stub[0]:'', stubTitle:stub?stub[1]:'', stubBody:stub?stub[2]:'',
+      stats, recent, actions, filters, appRows, agentRows, noRows:appRows.length===0,
+      riskStats, workQueue, health, healthOverall:85, deadlines, watchlist,
+      openInvite:()=>this.setState({dialog:'invite', tempPassword:this.genPass()}), inviteName:(curV&&curV.business)||'the new agent',
+      tempPassword:s.tempPassword, regenPass:()=>this.setState({tempPassword:this.genPass()}),
+      cur:curV||{},
+      // dialogs
+      openApprove:()=>this.setState({dialog:'approve'}), openReject:()=>this.setState({dialog:'reject'}),
+      openRequest:()=>this.setState({dialog:'request'}), openTerminate:()=>this.setState({dialog:'terminate'}),
+      closeDialog:()=>this.setState({dialog:null}), stop:(e)=>e.stopPropagation(),
+      showApproveD:s.dialog==='approve', showRejectD:s.dialog==='reject', showRequestD:s.dialog==='request',
+      showInviteD:s.dialog==='invite', showTerminateD:s.dialog==='terminate',
+      rejectReason:s.rejectReason, onReject:(e)=>this.setState({rejectReason:e.target.value}),
+      requestNote:s.requestNote, onRequest:(e)=>this.setState({requestNote:e.target.value}),
+      termReason:s.termReason, onTerm:(e)=>this.setState({termReason:e.target.value}),
+      confirmApprove:()=>{ if(cur){this.setStatus(cur.id,'Approved');} this.setState({dialog:'invite', tempPassword:this.genPass()}); this.toastMsg('Agent approved · approval email sent'); },
+      confirmReject:()=>{ if(cur)this.setStatus(cur.id,'Rejected'); this.setState({dialog:null, nav:'applications'}); this.toastMsg('Rejection sent to agent'); },
+      confirmRequest:()=>{ if(cur)this.setStatus(cur.id,'Pending Documents'); this.setState({dialog:null}); this.toastMsg('Information request emailed'); },
+      confirmInvite:()=>{ this.setState({dialog:null}); this.toastMsg('Agent account created · login access sent via '+s.inviteChannel); },
+      confirmTerminate:()=>{ if(cur)this.setStatus(cur.id,'Terminated'); this.setState({dialog:null, nav:'agents'}); this.toastMsg('Agent terminated · access revoked'); },
+      showFeedbackTriggerD:s.dialog==='feedbackTrigger', showFeedbackApprovalD:s.dialog==='feedbackApproval', showReregisterD:s.dialog==='reregister',
+      confirmFeedbackTrigger:()=>{ if(cur)this.setState(st=>({agents:st.agents.map(a=>a.id===cur.id?{...a,onboard:{...(a.onboard||{}),feedbackTrigger:true}}:a),dialog:null})); this.toastMsg('Feedback survey sent to students'); },
+      confirmFeedbackApproval:()=>{ if(cur)this.setState(st=>({agents:st.agents.map(a=>a.id===cur.id?{...a,onboard:{...(a.onboard||{}),feedbackApproval:true}}:a),dialog:null})); this.toastMsg('Student feedback approved'); },
+      confirmReregister:()=>{ if(cur)this.setState(st=>({agents:st.agents.map(a=>a.id===cur.id?{...a,onboard:{...(a.onboard||{}),reregister:true}}:a),dialog:null})); this.toastMsg('Re-registration triggered'); },
+      chEmail:s.inviteChannel==='Email', chSms:s.inviteChannel==='SMS', chWa:s.inviteChannel==='WhatsApp',
+      pickEmail:()=>this.setState({inviteChannel:'Email'}), pickSms:()=>this.setState({inviteChannel:'SMS'}), pickWa:()=>this.setState({inviteChannel:'WhatsApp'}),
+      onExpiry:(e)=>{}, toast:s.toast,
+      showViewDocD:s.dialog==='viewdoc', viewDoc:this.docTemplate(cur, s.viewDocKey),
+      viewDocHasFile: !!(cur && (()=>{ const d=cur.docs.find(x=>x.key===s.viewDocKey); return d&&d.status!=='missing'; })()),
+      showUploadD:s.dialog==='upload', uploadName:s.uploadName,
+      uploadDocLabel:(cur && s.uploadKey && (cur.docs.find(x=>x.key===s.uploadKey)||{}).label)||'document',
+      onUploadName:(e)=>this.setState({uploadName:e.target.value}),
+      pickSample:(e)=>this.setState({uploadName:e.target.value}),
+      canConfirmUpload: !!(s.uploadName && s.uploadName.trim()), uploadDisabled: !(s.uploadName && s.uploadName.trim()),
+      confirmUpload:()=>{ const k=s.uploadKey, nm=s.uploadName; if(cur&&k) this.setState(st=>({agents:st.agents.map(a=>a.id===cur.id?{...a,docs:a.docs.map(x=>x.key===k?{...x,status:'pending',file:nm}:x)}:a),dialog:null,uploadName:''})); this.toastMsg(nm+' uploaded'); },
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: amp-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: amp
+      POSTGRES_PASSWORD: amp_dev_password
+      POSTGRES_DB: amp
+    ports:
+      - "5432:5432"
+    volumes:
+      - amp_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U amp -d amp"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  amp_pgdata:
