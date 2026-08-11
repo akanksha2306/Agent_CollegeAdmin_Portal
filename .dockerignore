@@ -1,0 +1,12 @@
+node_modules
+**/node_modules
+dist
+**/dist
+build
+.git
+.env
+**/.env
+backend/uploads
+*.log
+.DS_Store
+.claude
